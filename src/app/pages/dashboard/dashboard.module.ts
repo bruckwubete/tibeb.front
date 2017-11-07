@@ -19,12 +19,14 @@ import { SolarComponent } from './solar/solar.component';
 import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
+import { Ng2Carousel3dModule }  from 'ng2-carousel-3d';
 
 
 @NgModule({
   imports: [
     ThemeModule,
     AngularEchartsModule,
+    Ng2Carousel3dModule
   ],
   declarations: [
     DashboardComponent,

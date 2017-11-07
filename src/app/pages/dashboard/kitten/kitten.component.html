@@ -1,13 +1,14 @@
-<nb-card size="medium">
+<!-- <nb-card size="medium">
   <nb-card-body>
-    <div class="picture" style.background-image="url('assets/images/kitten-{{currentTheme}}.png')"></div>
+    <div class="card-img-container">
+      <img class="card-img" src="{{item.poster_image}}"/>
+    </div>
 
     <div class="details">
-      <div class="title">
-        React Native UI Kitten
-      </div>
+        <h5>{{item.movie_title}}</h5>
       <div class="description">
-        React Native UI Kitten is a framework that contains a set of commonly used UI components styled in a similar way. The most awesome thing: you can change themes on the fly by just passing a different set of variables. 100% native. Give our kitten a try!
+        {{item.plot || 'No plot information available for this movie'}}
+        {{item.plot}}
       </div>
     </div>
   </nb-card-body>
@@ -27,4 +28,53 @@
       <i class="ion-social-github"></i>
     </a>
   </nb-card-footer>
+</nb-card> -->
+
+<nb-card size="x-small">
+<nb-card-body>
+
+<div class="row card-content">
+<div class="col-4 image-container">
+<img src="{{item.poster_image}}" class="kit-card-img"/>
+</div>
+<div class="column col-8 card-content-container">
+<div class="row">
+    <div class="details">
+        <h5>{{item.movie_title}}</h5>
+    </div>
+
+<span> <i class="icon ion-star kit-rating-icon"></i>  <span> no rating info available </span> &nbsp;&nbsp;</span>
+<span> <i class="icon ion-android-calendar kit-calendar-icon"></i> {{item.release_date}} &nbsp;&nbsp;</span>
+<div class="w-100"></div>
+<div *ngFor="let genre of item.genres">
+<p class="kit-genre-label"> &nbsp; {{genre}} &nbsp;</p>
+</div>
+</div>
+<br>
+<div class="row kit-overflow-ellipsis">
+<div>{{item.plot || 'No plot information available for this movie'}}</div>
+<!-- <div class="row kit-position-to-bottom">
+    <hr class="kit-divider"/>
+    <button (click)="showMovieDetail()" type="button" class="btn btn-default btn-with-icon kit-more-info-button"><i class="ion-ios-arrow-down"></i>More Info</button>
+    </div> -->
+</div>
+<nb-card-footer class="row kit-position-to-bottom">
+    <hr class="kit-divider"/>
+    <a href="https://akveo.github.io/react-native-ui-kitten" target="_blank">
+      <i class="ion-ios-world"></i>
+    </a>
+    <a href="https://itunes.apple.com/us/app/kitten-tricks/id1246143230" target="_blank">
+      <i class="ion-social-apple"></i>
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.akveo.kittenTricks" target="_blank">
+      <i class="ion-social-android"></i>
+    </a>
+    <a href="https://github.com/akveo/react-native-ui-kitten" target="_blank">
+      <i class="ion-social-github"></i>
+    </a>
+  </nb-card-footer>
+</div>
+</div>
+</nb-card-body>
 </nb-card>
+

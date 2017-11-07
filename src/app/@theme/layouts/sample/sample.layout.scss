@@ -19,6 +19,7 @@
 
       /deep/ .main-container {
         width: 0;
+        height: 74% !important;
 
         .scrollable {
           width: $sidebar-width;
@@ -29,6 +30,7 @@
 
     /deep/ .main-container {
       width: $sidebar-width;
+      height: 74% !important;
       background: nb-theme(color-bg);
       transition: width 0.3s ease;
       overflow: hidden;
@@ -48,9 +50,11 @@
     margin-top: nb-theme(sidebar-header-gap);
 
     /deep/ .main-container {
-      height:
-        calc(#{nb-theme(sidebar-height)} - #{nb-theme(header-height)} - #{nb-theme(sidebar-header-gap)}) !important;
+      height: 74% !important;
       border-top-right-radius: nb-theme(radius);
+      border-top-left-radius: nb-theme(radius);
+      border-bottom-right-radius: nb-theme(radius);
+      border-bottom-left-radius: nb-theme(radius);
     }
 
     /deep/ nb-sidebar-header {
@@ -97,34 +101,6 @@
           display: none;
         }
       }
-    }
-  }
-
-  @include media-breakpoint-down(xs) {
-    .main-content {
-      padding: 0.75rem !important;
-
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-
-    nb-sidebar.menu-sidebar {
-
-      margin-top: 0;
-
-      /deep/ .main-container {
-        height: calc(#{nb-theme(sidebar-height)} - #{nb-theme(header-height)}) !important;
-        border-top-right-radius: 0;
-
-        .scrollable {
-          padding-top: 0;
-        }
-      }
-    }
-
-    .main-btn {
-      display: none;
     }
   }
 }
