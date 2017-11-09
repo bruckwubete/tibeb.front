@@ -13,7 +13,8 @@ export interface EtmdbAuthProviderConfig {
 export class EtmdbAuthProvider extends NbAbstractAuthProvider {
   private OauthLoginEndPointUrl = 'https://etmdb.com/api/oauth/token/';
   private clientId ='UM15e3aAhgKGJfKvYmyjos9i5sM4jEsnEVHbkK69';
-  private clientSecret ='T7mTk8BI4KHgy8F59rdLiPD5OmzCgWeFi4HWp5htvKMZbnVTH7ymxjMcBjLZyLdx9z61hjLGq3hCii72qJcVK0MIZyxnegoKkI1gD1J7iSASKCpcdJ3bgWoDeZIAPNSA';
+  private clientSecret =
+    'T7mTk8BI4KHgy8F59rdLiPD5OmzCgWeFi4HWp5htvKMZbnVTH7ymxjMcBjLZyLdx9z61hjLGq3hCii72qJcVK0MIZyxnegoKkI1gD1J7iSASKCpcdJ3bgWoDeZIAPNSA';
 
   constructor(private http: HttpClient) {
     super()
@@ -49,7 +50,7 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
         res['access_token']);
     })
     .catch((res) => {
-      let errors = [];
+      const errors = [];
       if (res instanceof HttpErrorResponse) {
         // /errors = this.getConfigValue('errors.getter')('login', res);
         errors.push('Something went wrong.');
