@@ -61,6 +61,7 @@
     "ionicons": "2.0.1",
     "jquery": "3.2.1",
     "leaflet": "1.0.3",
+    "lodash": "4.17.4",
     "nebular-icons": "1.0.6",
     "ng2-carousel-3d": "0.1.10",
     "ng2-ckeditor": "^1.1.9",

@@ -9,8 +9,11 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 
+import { AuthGuard } from './app-auth-guard';
+import { EtmdbLoginComponent } from './pages/login/login.component'
+
 const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -21,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: NbLoginComponent,
+        component: EtmdbLoginComponent,
       },
       {
         path: 'register',

@@ -6,6 +6,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
+  },
+  {
+    title: 'Log out',
+    icon: 'ion-log-out',
+    link: '/auth/logout',
+    home: false,
   }
   // {
   //   title: 'FEATURES',

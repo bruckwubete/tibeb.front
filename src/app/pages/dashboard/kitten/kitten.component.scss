@@ -103,9 +103,9 @@
 
   .kit-overflow-ellipsis{
     text-overflow: ellipsis;
-    max-height: 62px;
+    max-height: 90px;
     overflow: hidden;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     display: -webkit-box;
     -webkit-box-orient: vertical;
   }
