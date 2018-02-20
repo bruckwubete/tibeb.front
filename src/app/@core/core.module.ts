@@ -15,7 +15,7 @@ const NB_CORE_PROVIDERS = [
       email: {
         service: EtmdbAuthProvider,
         config: {
-          baseEndpoint: 'https://etmdb.com/api/oauth/token',
+          baseEndpoint: 'http://localhost:3000/auth/sign_in',
           delay: 3000,
           login: {
             rememberMe: true,

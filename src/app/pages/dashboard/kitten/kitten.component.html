@@ -35,16 +35,17 @@
 
 <div class="row card-content">
 <div class="col-4 image-container">
-<img src="{{item.poster_image}}" class="kit-card-img"/>
+<img src="{{getPosterPath(item)}}" class="kit-card-img"/>
 </div>
 <div class="column col-8 card-content-container">
 <div class="row">
     <div class="details">
-        <h5>{{item.movie_title}}</h5>
+        <h5>{{item.title}}</h5>
     </div>
-
-<span> <i class="icon ion-star kit-rating-icon"></i>  <span> no rating info available </span> &nbsp;&nbsp;</span>
-<span> <i class="icon ion-android-calendar kit-calendar-icon"></i> {{item.release_date}} &nbsp;&nbsp;</span>
+<div>
+  <span> <i class="icon ion-star kit-rating-icon"></i>  <span> {{item.popularity}}</span> &nbsp;&nbsp;</span>
+  <span> <i class="icon ion-android-calendar kit-calendar-icon"></i> {{item.release_date | amCalendar}} &nbsp;&nbsp;</span>
+</div>
 <div class="w-100"></div>
 <div *ngFor="let genre of item.genres">
 <p class="kit-genre-label"> &nbsp; {{genre}} &nbsp;</p>
@@ -52,7 +53,7 @@
 </div>
 <br>
 <div class="row kit-overflow-ellipsis">
-<div>{{item.plot || 'No plot information available for this movie'}}</div>
+<div>{{item.overview || 'No plot information available for this movie'}}</div>
 <!-- <div class="row kit-position-to-bottom">
     <hr class="kit-divider"/>
     <button (click)="showMovieDetail()" type="button" class="btn btn-default btn-with-icon kit-more-info-button"><i class="ion-ios-arrow-down"></i>More Info</button>

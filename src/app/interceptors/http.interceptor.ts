@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import { environment } from "../../environments/environment";
+import { Angular2TokenService, AuthData } from 'angular2-token';
 
 @Injectable()
 export class InterceptedHttp extends Http {
@@ -34,8 +35,7 @@ export class InterceptedHttp extends Http {
     }
 
     private updateUrl(req: string) {
-       // return  environment.origin + req;
-       return req;
+        return  environment.origin + req;
     }
 
     private getRequestOptionArgs(options?: RequestOptionsArgs) : RequestOptionsArgs {
@@ -45,10 +45,27 @@ export class InterceptedHttp extends Http {
         if (options.headers == null) {
             options.headers = new Headers();
         }
+        let atCurrentAuthData = this.getAuthDataFromStorage();
 
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Authorization', `Bearer ${ localStorage.getItem('token') }`);
+        options.headers.append('access-token', atCurrentAuthData.accessToken)
+        options.headers.append('expiry', atCurrentAuthData.expiry)
+        options.headers.append('client', atCurrentAuthData.client)
+        options.headers.append('token-type', atCurrentAuthData.tokenType)
+        options.headers.append('uid', atCurrentAuthData.uid)
 
         return options;
     }
+
+    // Try to get auth data from storage.
+    private getAuthDataFromStorage(): AuthData {
+        let authData:AuthData = {
+            accessToken:    localStorage.getItem('accessToken'),
+            client:         localStorage.getItem('client'),
+            expiry:         localStorage.getItem('expiry'),
+            tokenType:      localStorage.getItem('tokenType'),
+            uid:            localStorage.getItem('uid')
+        };
+        return authData
+    }
+
 }

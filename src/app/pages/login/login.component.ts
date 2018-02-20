@@ -9,13 +9,14 @@ import { NB_AUTH_OPTIONS_TOKEN } from '@nebular/auth';
 import _ from 'lodash'
 
 import { NbAuthResult, NbAuthService } from '@nebular/auth';
+import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
 @Component({
   selector: 'nb-login',
   template: `
     <nb-auth-block>
       <h2 class="title">Sign In</h2>
-      <small class="form-text sub-title">Hello! Sign in with your username</small>
+      <small class="form-text sub-title">Hello! Sign in with your email</small>
 
       <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
 
@@ -32,17 +33,17 @@ import { NbAuthResult, NbAuthService } from '@nebular/auth';
         </div>
 
         <div class="form-group">
-          <label for="input-email" class="sr-only">Username</label>
-          <input name="email" [(ngModel)]="user.username" id="input-email"
+          <label for="input-email" class="sr-only">Email</label>
+          <input name="email" [(ngModel)]="user.email" id="input-email"
                  class="form-control" placeholder="Email address" #email="ngModel"
                  [class.form-control-danger]="email.invalid && email.touched" autofocus
                  [required]="getConfigValue('forms.validation.email.required')">
           <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.required">
-            Username is required!
+            Email is required!
           </small>
           <small class="form-text error"
                  *ngIf="email.invalid && email.touched && email.errors?.pattern">
-            Username should be the real one!
+            Email should be the real one!
           </small>
         </div>
 
@@ -66,6 +67,12 @@ import { NbAuthResult, NbAuthService } from '@nebular/auth';
             characters
           </small>
         </div>
+
+
+        <!--<div class="form-group">
+          <label for="input-profile-pic" class="sr-only">Profile Picture</label>
+          <input lass="form-control" name="profile-pic" type="file" (change)="fileChangeEvent($event)" placeholder="Upload a profile picture" multiple/>
+        </div>-->
 
         <div class="form-group accept-group col-sm-12">
           <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe">Remember me</nb-checkbox>
@@ -105,7 +112,7 @@ export class EtmdbLoginComponent {
   user: any = {};
   submitted: boolean = false;
 
-  constructor(protected service: NbAuthService,
+  constructor(protected service: EtmdbAuthProvider,
               @Inject(NB_AUTH_OPTIONS_TOKEN) protected config = {},
               protected router: Router) {
 
@@ -118,7 +125,7 @@ export class EtmdbLoginComponent {
     this.errors = this.messages = [];
     this.submitted = true;
 
-    this.service.authenticate(this.provider, this.user).subscribe((result: NbAuthResult) => {
+    this.service.authenticate(this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
 
       if (result.isSuccess()) {

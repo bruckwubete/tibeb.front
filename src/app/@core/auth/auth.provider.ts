@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-
+import {Http} from '@angular/http';
+import {HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injector } from '@angular/core';
 import { NbAbstractAuthProvider, NbAuthResult } from '@nebular/auth';
+import { Angular2TokenService } from 'angular2-token';
 
 export interface EtmdbAuthProviderConfig {
   delay?: number;
@@ -11,66 +13,186 @@ export interface EtmdbAuthProviderConfig {
 
 @Injectable()
 export class EtmdbAuthProvider extends NbAbstractAuthProvider {
-  private OauthLoginEndPointUrl = 'https://etmdb.com/api/oauth/token/';
-  private clientId ='UM15e3aAhgKGJfKvYmyjos9i5sM4jEsnEVHbkK69';
-  private clientSecret =
-    'T7mTk8BI4KHgy8F59rdLiPD5OmzCgWeFi4HWp5htvKMZbnVTH7ymxjMcBjLZyLdx9z61hjLGq3hCii72qJcVK0MIZyxnegoKkI1gD1J7iSASKCpcdJ3bgWoDeZIAPNSA';
 
-  constructor(private http: HttpClient) {
+  protected _tokenService: Angular2TokenService;
+
+
+  constructor(private http: Http, _tokenService: Angular2TokenService) {
     super()
+    this._tokenService = _tokenService
+    this._tokenService.init({
+      apiBase:                    'http://localhost:3000',
+      apiPath:                    'api/v1',
+
+      signInPath:                 'auth/sign_in',
+      signInRedirect:             'pages/dashboard',
+      signInStoredUrlStorageKey:  null,
+
+      signOutPath:                'auth/sign_out',
+      validateTokenPath:          'auth/validate_token',
+      signOutFailedValidate:      false,
+
+      registerAccountPath:        'auth',
+      deleteAccountPath:          'auth',
+      registerAccountCallback:    window.location.href,
+
+      updatePasswordPath:         'auth',
+      resetPasswordPath:          'auth/password',
+      resetPasswordCallback:      window.location.href,
+
+      oAuthBase:                  window.location.origin,
+      oAuthPaths: {
+          github:                 'auth/github'
+      },
+      oAuthCallbackPath:          'oauth_callback',
+      oAuthWindowType:            'newWindow',
+      oAuthWindowOptions:         null,
+
+      userTypes:                  null,
+
+      globalOptions: {
+          headers: {
+              'Content-Type':     'application/json',
+              'Accept':           'application/json'
+          }
+      }
+  })
   }
 
   protected defaultConfig: EtmdbAuthProviderConfig = {
     delay: 1000,
   };
 
+  isAuthenticated():Observable<any> {
+    return this._tokenService.validateToken().map(
+      res =>      {
+        return true
+      }
+    ).catch( error =>   {console.log(error); return Observable.of(false)})
+  }
+
+
   authenticate(data?: any): Observable<NbAuthResult> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.append('username', data.username );
-    params.append('password', data.password );
-    params.append('client_id', this.clientId );
-    params.append('client_secret', this.clientSecret );
-    params.append('grant_type', 'password' );
 
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(this.OauthLoginEndPointUrl + '?' + params.toString(), {} , {...headers}).map((res) => {
-      if (this.getConfigValue('login.alwaysFail')) {
-        throw this.createFailResponse(data);
+    return this._tokenService.signIn({
+      email: data.email,
+      password: data.password
+    }).map(
+      res =>      {
+        console.log(res)
+        return new NbAuthResult(
+              true,
+              res.json(),
+              '/pages/dashboard',
+              [],
+              'successfully logged in')
       }
+    ).catch( error =>   {console.log(error); return Observable.of(new NbAuthResult(false))})
+    // const OauthLoginEndPointUrl = 'http://localhost:3000/api/v1/auth/sign_in';
+    // let params: URLSearchParams = new URLSearchParams();
+    // params.append('email', data.email );
+    // params.append('password', data.password );
 
-      return res;
-    })
-    .map((res) => {
-      return new NbAuthResult(
-        true,
-        res,
-        '/pages/dashboard',
-        [],
-        'successfully logged in',
-        res['access_token']);
-    })
-    .catch((res) => {
-      const errors = [];
-      if (res instanceof HttpErrorResponse) {
-        // /errors = this.getConfigValue('errors.getter')('login', res);
-        errors.push('Something went wrong.');
-      } else {
-        errors.push('Something went wrong.');
-      }
+    // let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // return this.http.post(OauthLoginEndPointUrl + '?' + params.toString(), {} , {...headers}).map((res) => {
+    //   if (this.getConfigValue('login.alwaysFail')) {
+    //     throw this.createFailResponse(data);
+    //   }
 
-      return Observable.of(
-        new NbAuthResult(
-          false,
-          res,
-          'Failed to login to EtMDB',
-          errors,
-        ));
-    });
+    //   let nbAuthResult = new NbAuthResult(
+    //     true,
+    //     res.json(),
+    //     '/pages/dashboard',
+    //     [],
+    //     'successfully logged in',
+    //     res.headers["_headers"].get("access-token")[0])
+
+    //   //this.tokenService.set(nbAuthResult.getTokenValue())
+
+    //   return nbAuthResult
+    // })
+    // .catch((res) => {
+    //   const errors = [];
+    //   if (res instanceof HttpErrorResponse) {
+    //     // /errors = this.getConfigValue('errors.getter')('login', res);
+    //     errors.push('Something went wrong.');
+    //   } else {
+    //     errors.push('Something went wrong.');
+    //   }
+
+    //   return Observable.of(
+    //     new NbAuthResult(
+    //       false,
+    //       res,
+    //       'Failed to login to Tibeb',
+    //       errors,
+    //     ));
+    // });
   }
 
   register(data?: any): Observable<NbAuthResult> {
-    return Observable.of(this.createDummyResult(data))
-      .delay(this.getConfigValue('delay'));
+
+    return this._tokenService.registerAccount({
+      email: data.email,
+      password: data.password,
+      passwordConfirmation: data.password
+    }).map(
+      res =>      {
+          return new NbAuthResult(
+              true,
+              res,
+              '/pages/dashboard',
+              [],
+              'successfully logged in'
+          )
+        }
+    ).catch( error =>   {console.log(error); return Observable.of(new NbAuthResult(false))})
+    // const OauthRegisterEndPointUrl = 'http://localhost:3000/api/v1/auth/';
+    // let params: URLSearchParams = new URLSearchParams();
+    // params.append('email', data.email );
+    // params.append('password', data.password );
+    // params.append('password_confirmation', data.password );
+    // params.append('confirm_success_url', 'http://localhost:4200/#/pages/dashboard' );
+
+
+    // let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // return this.http.post(OauthRegisterEndPointUrl + '?' + params.toString(), {} , {...headers})
+    // .map((res) => {
+    //   if (this.getConfigValue('login.alwaysFail')) {
+    //     throw this.createFailResponse(data);
+    //   }
+    //   console.log(res)
+    //   return res.json();
+    // })
+    // .map((res) => {
+    //   return new NbAuthResult(
+    //     true,
+    //     res,
+    //     '/pages/dashboard',
+    //     [],
+    //     'successfully logged in',
+    //     res['access_token']);
+    // })
+    // .catch((res) => {
+    //   const errors = [];
+    //   if (res instanceof HttpErrorResponse) {
+    //     // /errors = this.getConfigValue('errors.getter')('login', res);
+    //     errors.push('Something went wrong.');
+    //   } else {
+    //     errors.push('Something went wrong.');
+    //   }
+
+    //   return Observable.of(
+    //     new NbAuthResult(
+    //       false,
+    //       res,
+    //       'Failed to Register to Tibeb',
+    //       errors,
+    //     ));
+    // })
+
+
   }
 
   requestPassword(data?: any): Observable<NbAuthResult> {
@@ -83,9 +205,18 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
       .delay(this.getConfigValue('delay'));
   }
 
-  logout(data?: any): Observable<NbAuthResult> {
-    return Observable.of(this.createDummyResult(data))
-      .delay(this.getConfigValue('delay'));
+  logout(): Observable<NbAuthResult> {
+    return this._tokenService.signOut().map(
+      res =>      {
+          return new NbAuthResult(
+              true,
+              res,
+              '/pages/login',
+              [],
+              'successfully logged out'
+          )
+        }
+    ).catch( error =>   {console.log(error); return Observable.of(new NbAuthResult(false))})
   }
 
   protected createDummyResult(data?: any): NbAuthResult {

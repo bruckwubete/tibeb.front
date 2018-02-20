@@ -20,7 +20,11 @@ import { AuthGuard } from './app-auth-guard';
 import {httpFactory} from "./Factories/http.factory";
 
 import { EtmdbAuthProvider } from './@core/auth/auth.provider'
+import { NbAuthSimpleToken, NbTokenService } from '@nebular/auth';
 import { EtmdbLoginComponent } from './pages/login/login.component'
+
+import { Angular2TokenService } from 'angular2-token';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [AppComponent, EtmdbLoginComponent],
@@ -29,6 +33,7 @@ import { EtmdbLoginComponent } from './pages/login/login.component'
     BrowserAnimationsModule,
     HttpModule,
     AppRoutingModule,
+    MomentModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
@@ -39,6 +44,9 @@ import { EtmdbLoginComponent } from './pages/login/login.component'
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
     EtmdbAuthProvider,
+    NbTokenService,
+    Angular2TokenService,
+
     {
       provide: Http,
       useFactory: httpFactory,

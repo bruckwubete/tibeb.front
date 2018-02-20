@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MovieService } from '../../services/movie/movie-service.service'
+import { environment } from "../../../environments/environment";
 @Component({
   selector: 'ngx-dashboard',
   styleUrls: ['./dashboard.component.scss'],
@@ -25,13 +26,13 @@ export class DashboardComponent {
     loop: true
 }
   constructor(private $movie: MovieService) {
-    for (var index=1; index<=5; index++) {
+    for (var index=1; index<=2; index++) {
       $movie.getMovies(index).subscribe(res => {
-        this.movies = this.movies.concat(res);
+        this.movies = this.movies.concat(res['data']);
         let newSlides = new Array<object>()
 
-        res.forEach((item) => {
-          newSlides.push({src: item['poster_image']})
+        res['data'].forEach((item) => {
+          newSlides.push({src: `${environment.origin}/${item.posters[0]['picture_path']}`})
         })
         this.slides = newSlides.concat(this.slides)
       })

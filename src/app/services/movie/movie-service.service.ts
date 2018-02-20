@@ -8,14 +8,16 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class MovieService {
-  private baseUrl: string = 'https://etmdb.com/api/v1';
+  private baseUrl: string = '/api/v1/movies';
   constructor(private http: Http) { }
 
   getMovies(pageNumber: number): Observable<Object[]> {
 
-      return this.http.get(`${this.baseUrl}/movie/list/?page=${pageNumber}`)
+      return this.http.get(`${this.baseUrl}?page[number]=${pageNumber}`)
                       .map((res: Response) => res.json())
-                      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+                      .catch((error: any) => {
+                        return Observable.throw(error || 'Server error')
+                      });
 
    }
 }

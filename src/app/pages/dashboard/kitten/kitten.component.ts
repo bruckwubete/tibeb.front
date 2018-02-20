@@ -1,5 +1,6 @@
 import { Component, OnDestroy, Input } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'ngx-kitten',
@@ -7,7 +8,7 @@ import { NbThemeService } from '@nebular/theme';
   templateUrl: './kitten.component.html',
 })
 export class KittenComponent implements OnDestroy {
-  @Input() item: { title: string, genres: string, poster_image: string, release_date: string, plot: string, ratingPercent: string}
+  @Input() item
 
   currentTheme: string;
   themeSubscription: any;
@@ -20,5 +21,9 @@ export class KittenComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
+  }
+
+  getPosterPath(item) {
+    return `${environment.origin}/${item.posters[0]['picture_path']}`
   }
 }
