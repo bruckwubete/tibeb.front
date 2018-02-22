@@ -12,7 +12,9 @@ import { NbAuthResult, NbAuthService } from '@nebular/auth';
 import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
 @Component({
+  styleUrls: ['./login.component.scss'],
   selector: 'nb-login',
+
   template: `
     <nb-auth-block>
       <h2 class="title">Sign In</h2>
@@ -67,12 +69,6 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
             characters
           </small>
         </div>
-
-
-        <!--<div class="form-group">
-          <label for="input-profile-pic" class="sr-only">Profile Picture</label>
-          <input lass="form-control" name="profile-pic" type="file" (change)="fileChangeEvent($event)" placeholder="Upload a profile picture" multiple/>
-        </div>-->
 
         <div class="form-group accept-group col-sm-12">
           <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe">Remember me</nb-checkbox>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { TibebTokenService } from '../../services/overrides/tibeb-token-service';
 
 let counter = 0;
 
@@ -18,12 +19,12 @@ export class UserService {
 
   private userArray: any[];
 
-  constructor() {
+  constructor(private _tokenService: TibebTokenService) {
     // this.userArray = Object.values(this.users);
   }
 
   getUsers(): Observable<any> {
-    return Observable.of(this.users);
+    return this._tokenService.validateToken()
   }
 
   getUserArray(): Observable<any[]> {

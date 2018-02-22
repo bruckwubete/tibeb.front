@@ -22,12 +22,13 @@ import {httpFactory} from "./Factories/http.factory";
 import { EtmdbAuthProvider } from './@core/auth/auth.provider'
 import { NbAuthSimpleToken, NbTokenService } from '@nebular/auth';
 import { EtmdbLoginComponent } from './pages/login/login.component'
+import { EtmdbRegisterComponent } from './pages/register/register.component'
 
-import { Angular2TokenService } from 'angular2-token';
+import { TibebTokenService } from './services/overrides/tibeb-token-service';
 import { MomentModule } from 'angular2-moment';
 
 @NgModule({
-  declarations: [AppComponent, EtmdbLoginComponent],
+  declarations: [AppComponent, EtmdbLoginComponent, EtmdbRegisterComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,7 +46,7 @@ import { MomentModule } from 'angular2-moment';
     AuthGuard,
     EtmdbAuthProvider,
     NbTokenService,
-    Angular2TokenService,
+    TibebTokenService,
 
     {
       provide: Http,

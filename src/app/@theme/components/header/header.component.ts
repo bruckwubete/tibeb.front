@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+      .subscribe((users: any) => {let payload = users.json(); payload.data.profile_pic.profile_pic_path = 'http://localhost:3000' + payload.data.profile_pic.profile_pic_path;  this.user = payload.data});
   }
 
   toggleSidebar(): boolean {

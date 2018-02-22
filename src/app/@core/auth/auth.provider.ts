@@ -4,7 +4,7 @@ import {Http} from '@angular/http';
 import {HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { NbAbstractAuthProvider, NbAuthResult } from '@nebular/auth';
-import { Angular2TokenService } from 'angular2-token';
+import { TibebTokenService } from '../../services/overrides/tibeb-token-service';
 
 export interface EtmdbAuthProviderConfig {
   delay?: number;
@@ -14,10 +14,10 @@ export interface EtmdbAuthProviderConfig {
 @Injectable()
 export class EtmdbAuthProvider extends NbAbstractAuthProvider {
 
-  protected _tokenService: Angular2TokenService;
+  protected _tokenService: TibebTokenService;
 
 
-  constructor(private http: Http, _tokenService: Angular2TokenService) {
+  constructor(private http: Http, _tokenService: TibebTokenService) {
     super()
     this._tokenService = _tokenService
     this._tokenService.init({
@@ -34,7 +34,7 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
 
       registerAccountPath:        'auth',
       deleteAccountPath:          'auth',
-      registerAccountCallback:    window.location.href,
+      registerAccountCallback:    'pages/login',
 
       updatePasswordPath:         'auth',
       resetPasswordPath:          'auth/password',
@@ -132,11 +132,7 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
 
   register(data?: any): Observable<NbAuthResult> {
 
-    return this._tokenService.registerAccount({
-      email: data.email,
-      password: data.password,
-      passwordConfirmation: data.password
-    }).map(
+    return this._tokenService.registerAccount(data).map(
       res =>      {
           return new NbAuthResult(
               true,

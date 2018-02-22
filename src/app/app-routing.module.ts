@@ -11,6 +11,7 @@ import {
 
 import { AuthGuard } from './app-auth-guard';
 import { EtmdbLoginComponent } from './pages/login/login.component'
+import { EtmdbRegisterComponent } from './pages/register/register.component'
 
 const routes: Routes = [
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },
@@ -28,7 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'register',
-        component: NbRegisterComponent,
+        component: EtmdbRegisterComponent,
       },
       {
         path: 'logout',
