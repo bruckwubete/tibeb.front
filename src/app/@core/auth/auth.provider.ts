@@ -88,46 +88,6 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
               'successfully logged in')
       }
     ).catch( error =>   {console.log(error); return Observable.of(new NbAuthResult(false))})
-    // const OauthLoginEndPointUrl = 'http://localhost:3000/api/v1/auth/sign_in';
-    // let params: URLSearchParams = new URLSearchParams();
-    // params.append('email', data.email );
-    // params.append('password', data.password );
-
-    // let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    // return this.http.post(OauthLoginEndPointUrl + '?' + params.toString(), {} , {...headers}).map((res) => {
-    //   if (this.getConfigValue('login.alwaysFail')) {
-    //     throw this.createFailResponse(data);
-    //   }
-
-    //   let nbAuthResult = new NbAuthResult(
-    //     true,
-    //     res.json(),
-    //     '/pages/dashboard',
-    //     [],
-    //     'successfully logged in',
-    //     res.headers["_headers"].get("access-token")[0])
-
-    //   //this.tokenService.set(nbAuthResult.getTokenValue())
-
-    //   return nbAuthResult
-    // })
-    // .catch((res) => {
-    //   const errors = [];
-    //   if (res instanceof HttpErrorResponse) {
-    //     // /errors = this.getConfigValue('errors.getter')('login', res);
-    //     errors.push('Something went wrong.');
-    //   } else {
-    //     errors.push('Something went wrong.');
-    //   }
-
-    //   return Observable.of(
-    //     new NbAuthResult(
-    //       false,
-    //       res,
-    //       'Failed to login to Tibeb',
-    //       errors,
-    //     ));
-    // });
   }
 
   register(data?: any): Observable<NbAuthResult> {
@@ -143,51 +103,6 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
           )
         }
     ).catch( error =>   {console.log(error); return Observable.of(new NbAuthResult(false))})
-    // const OauthRegisterEndPointUrl = 'http://localhost:3000/api/v1/auth/';
-    // let params: URLSearchParams = new URLSearchParams();
-    // params.append('email', data.email );
-    // params.append('password', data.password );
-    // params.append('password_confirmation', data.password );
-    // params.append('confirm_success_url', 'http://localhost:4200/#/pages/dashboard' );
-
-
-    // let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    // return this.http.post(OauthRegisterEndPointUrl + '?' + params.toString(), {} , {...headers})
-    // .map((res) => {
-    //   if (this.getConfigValue('login.alwaysFail')) {
-    //     throw this.createFailResponse(data);
-    //   }
-    //   console.log(res)
-    //   return res.json();
-    // })
-    // .map((res) => {
-    //   return new NbAuthResult(
-    //     true,
-    //     res,
-    //     '/pages/dashboard',
-    //     [],
-    //     'successfully logged in',
-    //     res['access_token']);
-    // })
-    // .catch((res) => {
-    //   const errors = [];
-    //   if (res instanceof HttpErrorResponse) {
-    //     // /errors = this.getConfigValue('errors.getter')('login', res);
-    //     errors.push('Something went wrong.');
-    //   } else {
-    //     errors.push('Something went wrong.');
-    //   }
-
-    //   return Observable.of(
-    //     new NbAuthResult(
-    //       false,
-    //       res,
-    //       'Failed to Register to Tibeb',
-    //       errors,
-    //     ));
-    // })
-
 
   }
 

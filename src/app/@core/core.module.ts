@@ -6,7 +6,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 
-import { EtmdbAuthProvider } from './auth/auth.provider'
+import { EtmdbAuthProvider } from './auth/auth.provider';
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
@@ -30,10 +30,10 @@ const NB_CORE_PROVIDERS = [
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
-    NbAuthModule,
+    NbAuthModule
   ],
   declarations: [],
 })
@@ -47,7 +47,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         ...NB_CORE_PROVIDERS,
-      ],
+      ]
     };
   }
 }

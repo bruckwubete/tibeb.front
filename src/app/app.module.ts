@@ -13,6 +13,7 @@ import { CoreModule } from './@core/core.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+
 import { ThemeModule } from './@theme/theme.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,32 +21,48 @@ import { AuthGuard } from './app-auth-guard';
 import {httpFactory} from "./Factories/http.factory";
 
 import { EtmdbAuthProvider } from './@core/auth/auth.provider'
-import { NbAuthSimpleToken, NbTokenService } from '@nebular/auth';
-import { EtmdbLoginComponent } from './pages/login/login.component'
+import { NbAuthSimpleToken } from '@nebular/auth';
+
 import { EtmdbRegisterComponent } from './pages/register/register.component'
 
 import { TibebTokenService } from './services/overrides/tibeb-token-service';
 import { MomentModule } from 'angular2-moment';
+import { StoreModule } from '@ngrx/store';
+
+import { EffectsModule } from '@ngrx/effects';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
+import { AuthModule } from './@auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent, EtmdbLoginComponent, EtmdbRegisterComponent],
+  declarations: [AppComponent, EtmdbRegisterComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
-    AppRoutingModule,
     MomentModule,
-
+    CoreModule.forRoot(),
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
-    CoreModule.forRoot(),
+    StoreModule.forRoot({}),
+    AuthModule.forRoot(),
+
+    StoreRouterConnectingModule.forRoot({
+      /*
+        They stateKey defines the name of the state used by the router-store reducer.
+        This matches the key defined in the map of reducers
+      */
+      stateKey: 'router',
+    }),
+    EffectsModule.forRoot([])
   ],
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
-    AuthGuard,
     EtmdbAuthProvider,
-    NbTokenService,
     TibebTokenService,
 
     {

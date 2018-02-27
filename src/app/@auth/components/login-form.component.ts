@@ -1,23 +1,124 @@
+// import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+// import { FormGroup, FormControl } from '@angular/forms';
+// import { Authenticate } from '../models/user';
+
+// @Component({
+//   selector: 'bc-login-form',
+//   template: `
+//     <div>
+//       <div>Login</div>
+//       <div>
+//         <form [formGroup]="form" (ngSubmit)="submit()">
+//           <div>
+//             <div>
+//               <input type="text" matInput placeholder="Username" formControlName="username">
+//             </div>
+//           </div>
+
+//           <div>
+//             <div>
+//               <input type="password" matInput placeholder="Password" formControlName="password">
+//             </div>
+//           </div>
+
+//           <div *ngIf="errorMessage" class="loginError">
+//             {{ errorMessage }}
+//           </div>
+
+//           <div class="loginButtons">
+//             <button type="submit" mat-button>Login</button>
+//           </div>
+
+//         </form>
+//       </div>
+//     </div>
+//   `,
+//   styles: [
+//     `
+//     :host {
+//       display: flex;
+//       justify-content: center;
+//       margin: 72px 0;
+//     }
+
+//     .mat-form-field {
+//       width: 100%;
+//       min-width: 300px;
+//     }
+
+//     div,
+//     div {
+//       display: flex;
+//       justify-content: center;
+//     }
+
+//     .loginError {
+//       padding: 16px;
+//       width: 300px;
+//       color: white;
+//       background-color: red;
+//     }
+
+//     .loginButtons {
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: flex-end;
+//     }
+//   `,
+//   ],
+// })
+// export class LoginFormComponent implements OnInit {
+//   @Input()
+//   set pending(isPending: boolean) {
+//     if (isPending) {
+//       this.form.disable();
+//     } else {
+//       this.form.enable();
+//     }
+//   }
+
+//   @Input() errorMessage: string | null;
+
+//   @Output() submitted = new EventEmitter<Authenticate>();
+
+//   form: FormGroup = new FormGroup({
+//     username: new FormControl(''),
+//     password: new FormControl(''),
+//   });
+
+//   constructor() {}
+
+//   ngOnInit() {}
+
+//   submit() {
+//     if (this.form.valid) {
+//       this.submitted.emit(this.form.value);
+//     }
+//   }
+// }
+
+
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS_TOKEN } from '@nebular/auth';
 import _ from 'lodash'
+import { Component, OnInit, Input, Inject, Output, EventEmitter} from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Authenticate } from '../models/user';
 
 import { NbAuthResult, NbAuthService } from '@nebular/auth';
 import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
 @Component({
-  styleUrls: ['./login.component.scss'],
-  selector: 'nb-login',
+  selector: 'bc-login-form',
 
   template: `
     <nb-auth-block>
-      <h2 class="title">Sign In</h2>
+      <h2 class="title">Sign In form NGRX BRUCK</h2>
       <small class="form-text sub-title">Hello! Sign in with your email</small>
 
       <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
@@ -97,7 +198,7 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
     </nb-auth-block>
   `,
 })
-export class EtmdbLoginComponent {
+export class LoginFormComponent {
 
   redirectDelay: number = 0;
   showMessages: any = {};
@@ -141,5 +242,31 @@ export class EtmdbLoginComponent {
 
   getConfigValue(key: string): any {
     return _.get(this.config, key)
+  }
+
+  @Input()
+  set pending(isPending: boolean) {
+    if (isPending) {
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
+  }
+
+  @Input() errorMessage: string | null;
+
+  @Output() submitter = new EventEmitter<Authenticate>();
+
+  form: FormGroup = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  ngOnInit() {}
+
+  submit() {
+    if (this.form.valid) {
+      this.submitter.emit(this.form.value);
+    }
   }
 }
