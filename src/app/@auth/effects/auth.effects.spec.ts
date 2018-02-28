@@ -14,7 +14,7 @@ import {
   LoginSuccess,
   Logout,
 } from '../actions/auth';
-import { Authenticate, User } from '../models/user';
+import { AuthenticatePayload, User } from '../models/user';
 
 export class TestActions extends Actions {
   constructor() {
@@ -65,7 +65,7 @@ describe('AuthEffects', () => {
 
   describe('login$', () => {
     it('should return an auth.LoginSuccess action, with user information if login succeeds', () => {
-      const credentials: Authenticate = { username: 'test', password: '' };
+      const credentials: AuthenticatePayload = { usernameEmail: 'test', password: '' };
       const user = { name: 'User' } as User;
       const action = new Login(credentials);
       const completion = new LoginSuccess({ user });
@@ -79,7 +79,7 @@ describe('AuthEffects', () => {
     });
 
     it('should return a new auth.LoginFailure if the login service throws', () => {
-      const credentials: Authenticate = { username: 'someOne', password: '' };
+      const credentials: AuthenticatePayload = { usernameEmail: 'someOne', password: '' };
       const action = new Login(credentials);
       const completion = new LoginFailure('Invalid username or password');
       const error = 'Invalid username or password';

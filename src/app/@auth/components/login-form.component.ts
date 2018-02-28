@@ -1,6 +1,6 @@
 // import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 // import { FormGroup, FormControl } from '@angular/forms';
-// import { Authenticate } from '../models/user';
+// import { AuthenticatePayload } from '../models/user';
 
 // @Component({
 //   selector: 'bc-login-form',
@@ -108,7 +108,7 @@ import { NB_AUTH_OPTIONS_TOKEN } from '@nebular/auth';
 import _ from 'lodash'
 import { Component, OnInit, Input, Inject, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Authenticate } from '../models/user';
+import { AuthenticatePayload } from '../models/user';
 
 import { NbAuthResult, NbAuthService } from '@nebular/auth';
 import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
@@ -123,10 +123,10 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
       <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
 
-        <div *ngIf="showMessages.error && errors && errors.length > 0 && !submitted"
+        <div *ngIf="errorMessage"
              class="alert alert-danger" role="alert">
           <div><strong>Oh snap!</strong></div>
-          <div *ngFor="let error of errors">{{ error }}</div>
+          <div>{{ errorMessage }}</div>
         </div>
 
         <div *ngIf="showMessages.success && messages && messages.length > 0 && !submitted"
@@ -137,7 +137,7 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
         <div class="form-group">
           <label for="input-email" class="sr-only">Email</label>
-          <input name="email" [(ngModel)]="user.email" id="input-email"
+          <input name="email" [(ngModel)]="user.usernameEmail" id="input-email"
                  class="form-control" placeholder="Email address" #email="ngModel"
                  [class.form-control-danger]="email.invalid && email.touched" autofocus
                  [required]="getConfigValue('forms.validation.email.required')">
@@ -219,25 +219,7 @@ export class LoginFormComponent {
   }
 
   login(): void {
-    this.errors = this.messages = [];
-    this.submitted = true;
-
-    this.service.authenticate(this.user).subscribe((result: NbAuthResult) => {
-      this.submitted = false;
-
-      if (result.isSuccess()) {
-        this.messages = result.getMessages();
-      } else {
-        this.errors = result.getErrors();
-      }
-
-      const redirect = result.getRedirect();
-      if (redirect) {
-        setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay);
-      }
-    });
+    this.submitter.emit(this.user);
   }
 
   getConfigValue(key: string): any {
@@ -255,7 +237,7 @@ export class LoginFormComponent {
 
   @Input() errorMessage: string | null;
 
-  @Output() submitter = new EventEmitter<Authenticate>();
+  @Output() submitter = new EventEmitter<AuthenticatePayload>();
 
   form: FormGroup = new FormGroup({
     username: new FormControl(''),

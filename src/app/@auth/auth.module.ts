@@ -18,6 +18,8 @@ import { NbLayoutModule, NbCardModule, NbCheckboxModule } from '@nebular/theme';
 import { NbAuthModule } from '@nebular/auth'
 import { AuthRoutingModule } from './auth-routing.module'
 
+import { LogoutPageComponent } from './containers/logout-page.component'
+
 import {
   NbAuthComponent,
   NbLogoutComponent,
@@ -26,7 +28,7 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 
-export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
+export const COMPONENTS = [LoginPageComponent, LoginFormComponent, LogoutPageComponent];
 
 
 @NgModule({
@@ -40,7 +42,7 @@ export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
     NbAuthModule,
     AuthRoutingModule],
   declarations: COMPONENTS,
-  exports: [LoginPageComponent, LoginFormComponent]
+  exports: COMPONENTS
 })
 export class AuthModule {
   static forRoot(): ModuleWithProviders {

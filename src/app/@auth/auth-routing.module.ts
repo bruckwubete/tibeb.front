@@ -9,7 +9,8 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 
-import {LoginPageComponent} from './containers/login-page.component'
+import { LoginPageComponent } from './containers/login-page.component'
+import { LogoutPageComponent } from './containers/logout-page.component'
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    component: NbLogoutComponent,
+    component: LogoutPageComponent,
   },
   {
     path: 'request-password',

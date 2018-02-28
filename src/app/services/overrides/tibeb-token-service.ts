@@ -29,7 +29,7 @@ export class TibebTokenService extends Angular2TokenService {
         const file:File = data.profilePic;
 
         formData.append("email", data.email)
-        formData.append("confirm_success_url", data.passwordConfirmation)
+        formData.append("confirm_success_url", data.confirmSuccessUrl)
         formData.append("confirm_password", data.passwordConfirmation)
         formData.append("name", data.name)
         formData.append("password", data.password)

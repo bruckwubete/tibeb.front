@@ -10,8 +10,9 @@ import {
   LoginSuccess,
   LoginFailure,
   AuthActionTypes,
+  Logout,
 } from '../actions/auth';
-import { User, Authenticate } from '../models/user';
+import { User, AuthenticatePayload } from '../models/user';
 
 @Injectable()
 export class AuthEffects {
@@ -19,7 +20,7 @@ export class AuthEffects {
   login$ = this.actions$.pipe(
     ofType(AuthActionTypes.Login),
     map((action: Login) => action.payload),
-    exhaustMap((auth: Authenticate) =>
+    exhaustMap((auth: AuthenticatePayload) =>
       this.authService
         .login(auth)
         .pipe(
@@ -38,8 +39,13 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
+    exhaustMap(() =>
+      this.authService.logout()
+    ),
     tap(authed => {
-      this.router.navigate(['/auth/login']);
+      setTimeout(() => {
+        this.router.navigate(['/auth/login'])
+      }, 3000);
     })
   );
 

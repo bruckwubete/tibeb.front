@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Authenticate } from '../models/user';
+import { AuthenticatePayload } from '../models/user';
 import * as fromAuth from '../reducers';
 import * as Auth from '../actions/auth';
 
@@ -8,7 +8,7 @@ import * as Auth from '../actions/auth';
   selector: 'bc-login-page',
   template: `
     <bc-login-form
-      (submitted)="onSubmit($event)"
+      (submitter)="onSubmit($event)"
       [pending]="pending$ | async"
       [errorMessage]="error$ | async">
     </bc-login-form>
@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmit($event: Authenticate) {
+  onSubmit($event: AuthenticatePayload) {
     this.store.dispatch(new Auth.Login($event));
   }
 }
