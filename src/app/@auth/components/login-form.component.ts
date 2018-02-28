@@ -114,7 +114,7 @@ import { NbAuthResult, NbAuthService } from '@nebular/auth';
 import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
 @Component({
-  selector: 'bc-login-form',
+  selector: 'tb-login-form',
 
   template: `
     <nb-auth-block>
@@ -129,10 +129,10 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
           <div>{{ errorMessage }}</div>
         </div>
 
-        <div *ngIf="showMessages.success && messages && messages.length > 0 && !submitted"
+        <div *ngIf="loggedIn"
              class="alert alert-success" role="alert">
           <div><strong>Hooray!</strong></div>
-          <div *ngFor="let message of messages">{{ message }}</div>
+          <div>You Are Now Successfully Logged In</div>
         </div>
 
         <div class="form-group">
@@ -236,6 +236,7 @@ export class LoginFormComponent {
   }
 
   @Input() errorMessage: string | null;
+  @Input() loggedIn: Boolean | null;
 
   @Output() submitter = new EventEmitter<AuthenticatePayload>();
 

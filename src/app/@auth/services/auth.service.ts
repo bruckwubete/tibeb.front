@@ -127,7 +127,7 @@ export class AuthService {
           // )
           return of({...res})
         }
-    ).catch( error => _throw(error))
+    ).catch( error => _throw(new Error(error.errors.email)))
 
   }
 

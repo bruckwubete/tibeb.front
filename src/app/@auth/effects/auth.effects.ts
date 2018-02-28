@@ -11,8 +11,12 @@ import {
   LoginFailure,
   AuthActionTypes,
   Logout,
+  Register,
+  RegisterSuccess,
+  RegisterFailure,
+  ClearRegisterFlag,
 } from '../actions/auth';
-import { User, AuthenticatePayload } from '../models/user';
+import { User, AuthenticatePayload, RegisterPayload } from '../models/user';
 
 @Injectable()
 export class AuthEffects {
@@ -30,10 +34,34 @@ export class AuthEffects {
     )
   );
 
+  @Effect()
+  register$ = this.actions$.pipe(
+    ofType(AuthActionTypes.Register),
+    map((action: Register) => action.payload),
+    exhaustMap((auth: RegisterPayload) =>
+      this.authService
+        .register(auth)
+        .pipe(
+          map(user => new RegisterSuccess({ user })),
+          catchError(error => of(new RegisterFailure(error.message)))
+        )
+    )
+  );
+
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     tap(() => this.router.navigate(['/']))
+  );
+
+  @Effect({ dispatch: false })
+  registerSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.RegisterSuccess),
+    tap(() => {
+      setTimeout(() => {
+        this.router.navigate(['/auth/login'])
+      }, 2000);
+    })
   );
 
   @Effect({ dispatch: false })

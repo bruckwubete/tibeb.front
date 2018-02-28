@@ -17,13 +17,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthGuard } from './app-auth-guard';
+
 import {httpFactory} from "./Factories/http.factory";
 
 import { EtmdbAuthProvider } from './@core/auth/auth.provider'
 import { NbAuthSimpleToken } from '@nebular/auth';
-
-import { EtmdbRegisterComponent } from './pages/register/register.component'
 
 import { TibebTokenService } from './services/overrides/tibeb-token-service';
 import { MomentModule } from 'angular2-moment';
@@ -37,7 +35,7 @@ import {
 import { AuthModule } from './@auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent, EtmdbRegisterComponent],
+  declarations: [AppComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

@@ -4,8 +4,6 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { LoginPageComponent } from './containers/login-page.component';
-import { LoginFormComponent } from './components/login-form.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -18,7 +16,11 @@ import { NbLayoutModule, NbCardModule, NbCheckboxModule } from '@nebular/theme';
 import { NbAuthModule } from '@nebular/auth'
 import { AuthRoutingModule } from './auth-routing.module'
 
-import { LogoutPageComponent } from './containers/logout-page.component'
+import { LoginPageComponent } from './containers/login/login-page.component';
+import { LoginFormComponent } from './components/login-form.component';
+import { LogoutPageComponent } from './containers/logout/logout-page.component'
+import { RegisterFormComponent } from './components/register-form.component';
+import { RegisterPageComponent } from './containers/register/register-page.component';
 
 import {
   NbAuthComponent,
@@ -28,7 +30,8 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 
-export const COMPONENTS = [LoginPageComponent, LoginFormComponent, LogoutPageComponent];
+
+export const COMPONENTS = [LoginPageComponent, LoginFormComponent, LogoutPageComponent, RegisterFormComponent, RegisterPageComponent];
 
 
 @NgModule({

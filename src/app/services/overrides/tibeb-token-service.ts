@@ -26,6 +26,7 @@ export class TibebTokenService extends Angular2TokenService {
       return Observable.fromPromise(new Promise((resolve, reject) => {
         let formData: any = new FormData()
         let xhr = new XMLHttpRequest()
+        xhr.responseType = 'json'
         const file:File = data.profilePic;
 
         formData.append("email", data.email)
@@ -39,7 +40,7 @@ export class TibebTokenService extends Angular2TokenService {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    resolve(JSON.parse(xhr.response))
+                    resolve(xhr.response)
                 } else {
                     reject(xhr.response)
                 }
@@ -48,6 +49,7 @@ export class TibebTokenService extends Angular2TokenService {
         xhr.open("POST", url, true)
         xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
         xhr.send(formData)
+        return Observable.of(xhr)
     }));
     }
 }

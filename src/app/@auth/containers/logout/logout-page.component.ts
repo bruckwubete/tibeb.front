@@ -5,9 +5,9 @@
  */
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import * as fromAuth from '../reducers';
-import * as Auth from '../actions/auth';
+import { AuthService } from '../../services/auth.service';
+import * as fromAuth from '../../reducers';
+import * as Auth from '../../actions/auth';
 
 @Component({
   selector: 'nb-logout',
