@@ -93,12 +93,12 @@ export class AuthService {
     delay: 1000,
   };
 
-  isAuthenticated():Observable<any> {
+  isAuthenticated():Observable<User> {
     return this._tokenService.validateToken().map(
       res =>      {
-        return true
+        return of({...res})
       }
-    ).catch( error =>   {console.log(error); return Observable.of(false)})
+    ).catch( error =>  _throw(new Error(error.json().errors)))
   }
 
 

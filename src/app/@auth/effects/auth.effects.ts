@@ -6,6 +6,7 @@ import { tap, map, exhaustMap, catchError } from 'rxjs/operators';
 
 import { AuthService } from '../services/auth.service';
 import {
+  Authenticate,
   Login,
   LoginSuccess,
   LoginFailure,
@@ -15,11 +16,27 @@ import {
   RegisterSuccess,
   RegisterFailure,
   ClearRegisterFlag,
+  LoginRedirect,
 } from '../actions/auth';
 import { User, AuthenticatePayload, RegisterPayload } from '../models/user';
 
 @Injectable()
 export class AuthEffects {
+
+  @Effect()
+  authenticate$ = this.actions$.pipe(
+    ofType(AuthActionTypes.Authenticate),
+    exhaustMap(() =>
+      this.authService
+        .isAuthenticated()
+        .pipe(
+          map(user => new LoginSuccess({ user })),
+          catchError(error => of(new Logout()))
+        )
+    )
+  );
+
+
   @Effect()
   login$ = this.actions$.pipe(
     ofType(AuthActionTypes.Login),
@@ -66,7 +83,16 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
-    ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
+    ofType(AuthActionTypes.LoginRedirect),
+    tap(authed => {
+      new Authenticate()
+    })
+  );
+
+
+  @Effect({ dispatch: false })
+  logOut$ = this.actions$.pipe(
+    ofType(AuthActionTypes.Logout),
     exhaustMap(() =>
       this.authService.logout()
     ),

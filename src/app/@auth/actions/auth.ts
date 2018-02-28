@@ -10,7 +10,15 @@ export enum AuthActionTypes {
   Register = '[Auth] Register',
   RegisterSuccess = '[Auth] Register Success',
   RegisterFailure = '[Auth] Register Failure',
-  ClearRegisterFlag = '[Flag] Clear Register Flag'
+  Authenticate = '[Auth] Authenticate',
+
+  // Flag clear actions
+  ClearRegisterFlag = '[Flag] Clear Register Flag',
+  ClearLoggedInFlag = '[Flag] Clear Logged In Flag'
+}
+
+export class Authenticate implements Action {
+  readonly type = AuthActionTypes.Authenticate;
 }
 
 export class Login implements Action {
@@ -54,6 +62,10 @@ export class RegisterFailure  implements Action {
   constructor(public payload: any) {}
 }
 
+export class ClearLoggedInFlag  implements Action {
+  readonly type = AuthActionTypes.ClearLoggedInFlag;
+}
+
 export class ClearRegisterFlag  implements Action {
   readonly type = AuthActionTypes.ClearRegisterFlag;
 }
@@ -67,4 +79,5 @@ export type AuthActions =
   | Register
   | RegisterSuccess
   | RegisterFailure
-  | ClearRegisterFlag;
+  | ClearRegisterFlag
+  | ClearLoggedInFlag;
