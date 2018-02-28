@@ -68,7 +68,14 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
-    tap(() => this.router.navigate(['/']))
+    tap(() => {
+      let nextRoute = ''
+      if (this.router.url == '/auth/login') {
+        nextRoute = '/pages/dashboard'
+      } else {
+        nextRoute = this.router.url
+      }
+      this.router.navigate([nextRoute])} )
   );
 
   @Effect({ dispatch: false })
@@ -97,9 +104,9 @@ export class AuthEffects {
       this.authService.logout()
     ),
     tap(authed => {
-      setTimeout(() => {
+      //setTimeout(() => {
         this.router.navigate(['/auth/login'])
-      }, 3000);
+     // }, 3000);
     })
   );
 
