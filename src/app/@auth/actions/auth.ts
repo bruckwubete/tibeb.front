@@ -11,6 +11,8 @@ export enum AuthActionTypes {
   RegisterSuccess = '[Auth] Register Success',
   RegisterFailure = '[Auth] Register Failure',
   Authenticate = '[Auth] Authenticate',
+  AuthenticateSuccess = '[Auth] Authenticate Success',
+  AuthenticateFailure = '[Auth] Authenticate Failure',
 
   // Flag clear actions
   ClearRegisterFlag = '[Flag] Clear Register Flag',
@@ -19,6 +21,17 @@ export enum AuthActionTypes {
 
 export class Authenticate implements Action {
   readonly type = AuthActionTypes.Authenticate;
+}
+
+export class AuthenticateSuccess implements Action {
+  readonly type = AuthActionTypes.AuthenticateSuccess;
+  constructor(public payload: { user: User }) {}
+}
+
+export class AuthenticateFailure implements Action {
+  readonly type = AuthActionTypes.AuthenticateFailure;
+
+  constructor(public payload: any) {}
 }
 
 export class Login implements Action {
@@ -71,6 +84,9 @@ export class ClearRegisterFlag  implements Action {
 }
 
 export type AuthActions =
+  | Authenticate
+  | AuthenticateSuccess
+  | AuthenticateFailure
   | Login
   | LoginSuccess
   | LoginFailure

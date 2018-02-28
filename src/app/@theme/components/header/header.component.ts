@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
-
+import { Store, select } from '@ngrx/store';
+import * as fromAuth from '../../../@auth/reducers';
+import { map, take } from 'rxjs/operators';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import {  Router } from '@angular/router';
 
@@ -19,16 +21,19 @@ export class HeaderComponent implements OnInit {
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
+
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserService,
               private analyticsService: AnalyticsService,
-              private router: Router) {
+              private router: Router,
+              private store: Store<fromAuth.State>) {
+
+                this.store.select(fromAuth.getUser)
+                .subscribe(user => { if(user) { user.value.profile_pic.profile_pic_path = 'http://localhost:3000' + user.value.profile_pic.profile_pic_path; this.user = user.value;}});
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => {let payload = users.json(); payload.data.profile_pic.profile_pic_path = 'http://localhost:3000' + payload.data.profile_pic.profile_pic_path;  this.user = payload.data});
   }
 
   toggleSidebar(): boolean {

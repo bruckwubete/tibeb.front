@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { tap, map, exhaustMap, catchError } from 'rxjs/operators';
@@ -17,6 +17,8 @@ import {
   RegisterFailure,
   ClearRegisterFlag,
   LoginRedirect,
+  AuthenticateSuccess,
+  AuthenticateFailure,
 } from '../actions/auth';
 import { User, AuthenticatePayload, RegisterPayload } from '../models/user';
 
@@ -30,11 +32,21 @@ export class AuthEffects {
       this.authService
         .isAuthenticated()
         .pipe(
-          map(user => new LoginSuccess({ user })),
-          catchError(error => of(new Logout()))
+          map(user => new AuthenticateSuccess({ user })),
+          catchError(error => of(new AuthenticateFailure(error)))
         )
     )
   );
+
+  // @Effect({ dispatch: false })
+  // authSuccess$ = this.actions$.pipe(
+  //   ofType(AuthActionTypes.AuthenticateSuccess),
+  //   tap(() => {
+  //     this.route.url.map(segments => segments.join('')).subscribe(str => console.log(str))
+  //     this.router.navigate([this.router.url])
+  //   })
+  // );
+
 
 
   @Effect()
@@ -69,13 +81,9 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     tap(() => {
-      let nextRoute = ''
-      if (this.router.url == '/auth/login') {
-        nextRoute = '/pages/dashboard'
-      } else {
-        nextRoute = this.router.url
-      }
-      this.router.navigate([nextRoute])} )
+      console.log(this.route)
+      this.router.navigate(['/pages/dashboard'])
+    })
   );
 
   @Effect({ dispatch: false })
@@ -104,15 +112,27 @@ export class AuthEffects {
       this.authService.logout()
     ),
     tap(authed => {
-      //setTimeout(() => {
+      setTimeout(() => {
         this.router.navigate(['/auth/login'])
-     // }, 3000);
+     }, 3000);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  authenticateFailure$ = this.actions$.pipe(
+    ofType(AuthActionTypes.AuthenticateFailure),
+    exhaustMap(() =>
+      this.authService.logout()
+    ),
+    tap(authed => {
+        this.router.navigate(['/auth/login'])
     })
   );
 
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 }

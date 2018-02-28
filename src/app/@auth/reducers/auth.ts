@@ -15,6 +15,19 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: AuthActions): State {
   switch (action.type) {
+    case AuthActionTypes.AuthenticateSuccess: {
+      return {
+        ...state,
+        loggedIn: true,
+        registered: true,
+        user: action.payload.user,
+      };
+    }
+
+    case AuthActionTypes.AuthenticateFailure: {
+      return initialState
+    }
+
     case AuthActionTypes.LoginSuccess: {
       return {
         ...state,

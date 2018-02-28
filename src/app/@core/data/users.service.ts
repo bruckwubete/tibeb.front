@@ -24,7 +24,7 @@ export class UserService {
   }
 
   getUsers(): Observable<any> {
-    return this._tokenService.validateToken()
+    return Observable.of(this.users)
   }
 
   getUserArray(): Observable<any[]> {

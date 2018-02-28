@@ -16,9 +16,7 @@ export class AuthGuard implements CanActivate {
       map(authed => {
         if (!authed) {
           this.store.dispatch(new Auth.Authenticate());
-          return false;
         }
-
         return true;
       }),
       take(1)

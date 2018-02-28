@@ -96,7 +96,7 @@ export class AuthService {
   isAuthenticated():Observable<User> {
     return this._tokenService.validateToken().map(
       res =>      {
-        return of({...res})
+        return of({...res.json().data})
       }
     ).catch( error =>  _throw(new Error(error.json().errors)))
   }
@@ -109,7 +109,7 @@ export class AuthService {
       password: password
     }).map(
       res =>      {
-        return of({...res})
+        return of({...res.json().data})
       }
     ).catch( error => _throw(new Error(error.json().errors)))
   }
@@ -118,14 +118,7 @@ export class AuthService {
 
     return this._tokenService.registerAccount(data).map(
       res =>      {
-          // return new NbAuthResult(
-          //     true,
-          //     res,
-          //     '/pages/dashboard',
-          //     [],
-          //     'successfully logged in'
-          // )
-          return of({...res})
+          return of({...res.json().data})
         }
     ).catch( error => _throw(new Error(error.errors.email)))
 

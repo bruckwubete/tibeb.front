@@ -13,6 +13,10 @@ export class TibebTokenService extends Angular2TokenService {
      * Actions
      *
      */
+
+    validateToken() {
+        return this.get(this._getUserPath() + this._options.validateTokenPath);
+    }
     registerAccount(registerData: RegisterData): Observable<Response> {
       if (registerData.userType == null)
           this._currentUserType = null;

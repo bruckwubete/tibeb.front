@@ -14,4 +14,5 @@ export interface RegisterPayload {
 
 export interface User {
   name: string
+  value: any
 }
