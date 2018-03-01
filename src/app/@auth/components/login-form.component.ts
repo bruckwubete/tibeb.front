@@ -223,7 +223,7 @@ export class LoginFormComponent {
   }
 
   getConfigValue(key: string): any {
-    return _.get(this.config, key)
+    return true
   }
 
   @Input()

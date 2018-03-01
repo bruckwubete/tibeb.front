@@ -7,6 +7,9 @@ import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
 import { NgModule } from '@angular/core';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CoreModule } from './@core/core.module';
@@ -55,7 +58,8 @@ import { AuthModule } from './@auth/auth.module';
       */
       stateKey: 'router',
     }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: true})
   ],
   bootstrap: [AppComponent],
   providers: [

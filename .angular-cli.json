@@ -12,10 +12,11 @@
         "favicon.ico",
         "favicon.png",
         {
-          "glob": "**/*",
-          "input": "../node_modules/leaflet/dist/images",
-          "output": "./assets/img/markers"
-        }
+  "glob": "**/*",
+  "input": "../node_modules/leaflet/dist/images",
+  "output": "./assets/img/markers",
+  "allowOutsideOutDir": false
+}
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -23,6 +24,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
+      "serviceWorker": true,
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/typeface-exo/index.css",
@@ -77,6 +79,7 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
   }
 }
