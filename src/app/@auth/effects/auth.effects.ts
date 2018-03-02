@@ -58,7 +58,7 @@ export class AuthEffects {
         .login(auth)
         .pipe(
           map(user => new LoginSuccess({ user })),
-          catchError(error => of(new LoginFailure(error)))
+          catchError(error => {console.log(error); return of(new LoginFailure(error))})
         )
     )
   );

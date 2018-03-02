@@ -1,31 +1,3 @@
-// import { Injectable } from '@angular/core';
-// import { of } from 'rxjs/observable/of';
-// import { _throw } from 'rxjs/observable/throw';
-// import { User, AuthenticatePayload } from '../models/user';
-// import { Observable } from 'rxjs/Observable';
-
-// @Injectable()
-// export class AuthService {
-//   constructor() {}
-
-//   login({ usernameEmail, password }: AuthenticatePayload): Observable<User> {
-//     /**
-//      * Simulate a failed login to display the error
-//      * message for the login form.
-//      */
-//     if (usernameEmail !== 'test') {
-//       return _throw('Invalid username or password');
-//     }
-
-//     return of({ name: 'User' });
-//   }
-
-//   logout() {
-//     return of(true);
-//   }
-// }
-
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {Http} from '@angular/http';
@@ -94,45 +66,28 @@ export class AuthService {
   };
 
   isAuthenticated():Observable<User> {
-    return this._tokenService.validateToken().map(
-      res =>      {
-        return of({...res.json().data})
-      }
+    return this._tokenService.validateToken().map( res =>  this.parseUser(res)
     ).catch( error =>  _throw(new Error(error.json().errors)))
   }
 
-
   login({ usernameEmail, password }: AuthenticatePayload): Observable<User> {
-
     return this._tokenService.signIn({
       email: usernameEmail,
       password: password
-    }).map(
-      res =>      {
-        return of({...res.json().data})
-      }
-    ).catch( error => _throw(new Error(error.json().errors)))
+    }).map((res) =>  this.parseUser(res))
+    .catch( error => _throw(new Error(error.json().errors)))
   }
 
   register(data?: any): Observable<User> {
-
-    return this._tokenService.registerAccount(data).map(
-      res =>      {
-          return of({...res.json().data})
-        }
-    ).catch( error => _throw(new Error(error.errors.email)))
-
+    return this._tokenService.registerAccount(data).map( res =>  this.parseUser(res))
+    .catch( error => _throw(new Error(error.errors.full_messages[0])))
   }
 
   requestPassword(data?: any): Observable<NbAuthResult> {
-    // return Observable.of(this.createDummyResult(data))
-    //   .delay(this.getConfigValue('delay'));
     return Observable.of(new NbAuthResult(false))
   }
 
   resetPassword(data?: any): Observable<NbAuthResult> {
-    // return Observable.of(this.createDummyResult(data))
-    //   .delay(this.getConfigValue('delay'));
     return Observable.of(new NbAuthResult(false))
   }
 
@@ -149,4 +104,15 @@ export class AuthService {
         }
     ).catch( error =>   {console.log(error); return Observable.of(new NbAuthResult(false))})
   }
+
+  // Helper Functions
+
+  private parseUser(user: any) :Observable<User> {
+    const userJson = user.data || user.json().data
+
+    return of({
+      name: userJson.name,
+      value: userJson
+    })
+ }
 }

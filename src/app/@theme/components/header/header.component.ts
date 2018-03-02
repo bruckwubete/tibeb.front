@@ -6,6 +6,7 @@ import * as fromAuth from '../../../@auth/reducers';
 import { map, take } from 'rxjs/operators';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import {  Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ngx-header',
@@ -30,7 +31,7 @@ export class HeaderComponent implements OnInit {
               private store: Store<fromAuth.State>) {
 
                 this.store.select(fromAuth.getUser)
-                .subscribe(user => { if(user) { user.value.profile_pic.profile_pic_path = 'http://localhost:3000' + user.value.profile_pic.profile_pic_path; this.user = user.value;}});
+                .subscribe(user => { if(user) { user.value.value.profile_pic.profile_pic_path = environment.origin + user.value.value.profile_pic.profile_pic_path; this.user = user.value.value;}});
   }
 
   ngOnInit() {

@@ -99,7 +99,7 @@ export class RegisterFormComponent {
   }
 
   getConfigValue(key: string): any {
-    return _.get(this.config, key)
+    return true
   }
 
   fileChangeEvent(fileInput: any) {
