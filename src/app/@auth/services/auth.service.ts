@@ -111,7 +111,8 @@ export class AuthService {
     const userJson = user.data || user.json().data
 
     return of({
-      name: userJson.name,
+      firstName: userJson.first_name,
+      lastName: userJson.last_name,
       value: userJson
     })
  }

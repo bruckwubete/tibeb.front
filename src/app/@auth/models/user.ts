@@ -4,6 +4,8 @@ export interface AuthenticatePayload {
 }
 
 export interface RegisterPayload {
+  firstName: String,
+  lastName: String,
   confirmSuccessUrl?: String
   password: String
   passwordConfirmation: string
@@ -13,6 +15,7 @@ export interface RegisterPayload {
 }
 
 export interface User {
-  name: string
+  firstName: String,
+  lastName: String,
   value: any
 }

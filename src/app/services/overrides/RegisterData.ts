@@ -1,9 +1,13 @@
-export interface RegisterData {
+import {RegisterData} from 'ngx-token'
+export interface RegisterData2 extends RegisterData {
   email: string;
   confirmSuccessUrl?: string;
+  firstName: string;
+  lastName: string;
+  name?: string;
   password: string;
   passwordConfirmation: string;
-  name?: string;
   userType?: string;
-  profilePic?: File
+  profilePic?: any;
+  profile_pic?: any;
 }

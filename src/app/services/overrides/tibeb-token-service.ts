@@ -3,9 +3,10 @@ import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 
-import { Angular2TokenService, SignInData, UpdatePasswordData, ResetPasswordData, UserData, AuthData, Angular2TokenOptions } from 'angular2-token';
-import {RegisterData} from './RegisterData'
+import { Angular2TokenService, SignInData, UpdatePasswordData, ResetPasswordData, UserData, AuthData, Angular2TokenOptions } from 'ngx-token';
+import {RegisterData2} from './RegisterData'
 import { Body } from '@angular/http/src/body';
+import * as snakeCaseKeys from 'snakecase-keys'
 
 export class TibebTokenService extends Angular2TokenService {
     /**
@@ -15,31 +16,34 @@ export class TibebTokenService extends Angular2TokenService {
      */
 
     validateToken() {
-        return this.get(this._getUserPath() + this._options.validateTokenPath);
+        return this.get(this.getUserPath() + this.atOptions.validateTokenPath);
     }
-    registerAccount(registerData: RegisterData): Observable<Response> {
+    registerAccount(registerData: RegisterData2): Observable<Response> {
       if (registerData.userType == null)
-          this._currentUserType = null;
+          this.atCurrentUserType = null;
       else
-      this._currentUserType = this._getUserTypeByName(registerData.userType);
-      registerData.confirmSuccessUrl = this._options.registerAccountCallback
-      return this.makeRequest(this._getApiPath() + this._getUserPath() + this._options.registerAccountPath, registerData);
+      this.atCurrentUserType = this.getUserTypeByName(registerData.userType);
+      registerData.confirmSuccessUrl = this.atOptions.registerAccountCallback
+      return this.makeRequest(this.getApiPath() + this.getUserPath() + this.atOptions.registerAccountPath, registerData);
     }
 
-    makeRequest(url: string, data?:RegisterData) : Observable<Response> {
+    makeRequest(url: string, data?:RegisterData2) : Observable<Response> {
       return Observable.fromPromise(new Promise((resolve, reject) => {
-        let formData: any = new FormData()
+        const file:File = data.profilePic;
+        data = snakeCaseKeys(data)
+        data['profile_pic'] = file
+        let formData: any = this.createFormData(data)
         let xhr = new XMLHttpRequest()
         xhr.responseType = 'json'
-        const file:File = data.profilePic;
 
-        formData.append("email", data.email)
-        formData.append("confirm_success_url", data.confirmSuccessUrl)
-        formData.append("confirm_password", data.passwordConfirmation)
-        formData.append("name", data.name)
-        formData.append("password", data.password)
-        formData.append("profile_pic", file, file['name'])
-        formData.append("user_type", data.userType)
+        // formData.append("email", data.email)
+        // formData.append("confirm_success_url", data.confirmSuccessUrl)
+        // formData.append("confirm_password", data.passwordConfirmation)
+        // formData.append("first_name", data.firstName)
+        // formData.append("last_name", data.lastName)
+        // formData.append("password", data.password)
+        // formData.append("profile_pic", file, file['name'])
+        // formData.append("user_type", data.userType)
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
@@ -55,5 +59,25 @@ export class TibebTokenService extends Angular2TokenService {
         xhr.send(formData)
         return Observable.of(xhr)
     }));
+    }
+
+    createFormData(object: Object, form?: FormData, namespace?: string): FormData {
+        const formData = form || new FormData();
+        for (let property in object) {
+            if (!object.hasOwnProperty(property) && object[property] === null && object[property] === undefined) {
+                continue;
+            }
+            const formKey = namespace ? `${namespace}[${property}]` : property;
+            if (object[property] instanceof Date) {
+                formData.append(formKey, object[property].toISOString());
+            } else if (typeof object[property] === 'object' && !(object[property] instanceof File)) {
+                this.createFormData(object[property], formData, formKey);
+            } else if (object[property] instanceof File) {
+                formData.append(formKey, object[property], object[property]['name']);
+            } else {
+                formData.append(formKey, object[property]);
+            }
+        }
+        return formData;
     }
 }
