@@ -55,7 +55,7 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
   <div class="form-group">          <label for="input-re-password" class="sr-only">Repeat password</label>          <input            name="rePass" [(ngModel)]="user.passwordConfirmation" type="password" id="input-re-password"            class="form-control" placeholder="Confirm Password" #rePass="ngModel"            [class.form-control-danger]="(rePass.invalid || password.value != rePass.value) && rePass.touched"            [required]="getConfigValue('forms.validation.password.required')">          <small class="form-text error"                 *ngIf="rePass.invalid && rePass.touched && rePass.errors?.required">            Password confirmation is required!          </small>          <small            class="form-text error"            *ngIf="rePass.touched && password.value != rePass.value && !rePass.errors?.required">            Password does not match the confirm password.          </small>        </div>
   <div class="form-group">
    <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Profile Picture</label> <span> &nbsp;{{this.fileName}}</span> </div>
-   <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)"/>
+   <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)" multiple/>
   </div>
   <div class="form-group accept-group col-sm-12" *ngIf="getConfigValue('forms.register.terms')">          <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="getConfigValue('forms.register.terms')">            Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>          </nb-checkbox>        </div>
   <button [disabled]="submitted || !form.valid" class="btn btn-block btn-hero-success"                [class.btn-pulse]="submitted">          Register        </button>      </form>
@@ -91,7 +91,9 @@ export class RegisterFormComponent {
     password: new FormControl(''),
   });
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user.profilePic = new Array<File>()
+  }
 
   submit() {
     //if (this.form.valid) {
@@ -104,7 +106,7 @@ export class RegisterFormComponent {
   }
 
   fileChangeEvent(fileInput: any) {
-    this.user.profilePic = <File>fileInput.target.files[0];
+    Array.from(fileInput.target.files).forEach(file => this.user.profilePic.push(file))
     this.fileName = fileInput.target.files[0].name
   }
 }

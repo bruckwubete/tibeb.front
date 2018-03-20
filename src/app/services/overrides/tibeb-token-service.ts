@@ -29,21 +29,12 @@ export class TibebTokenService extends Angular2TokenService {
 
     makeRequest(url: string, data?:RegisterData2) : Observable<Response> {
       return Observable.fromPromise(new Promise((resolve, reject) => {
-        const file:File = data.profilePic;
+        const file:Array<File> = data.profilePic;
         data = snakeCaseKeys(data)
         data['profile_pic'] = file
         let formData: any = this.createFormData(data)
         let xhr = new XMLHttpRequest()
         xhr.responseType = 'json'
-
-        // formData.append("email", data.email)
-        // formData.append("confirm_success_url", data.confirmSuccessUrl)
-        // formData.append("confirm_password", data.passwordConfirmation)
-        // formData.append("first_name", data.firstName)
-        // formData.append("last_name", data.lastName)
-        // formData.append("password", data.password)
-        // formData.append("profile_pic", file, file['name'])
-        // formData.append("user_type", data.userType)
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
