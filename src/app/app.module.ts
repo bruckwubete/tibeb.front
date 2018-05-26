@@ -21,7 +21,7 @@ import { ThemeModule } from './@theme/theme.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {httpFactory} from "./Factories/http.factory";
+import {httpFactory} from "./factories/http.factory";
 
 import { EtmdbAuthProvider } from './@core/auth/auth.provider'
 import { NbAuthSimpleToken } from '@nebular/auth';
