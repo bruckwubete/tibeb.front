@@ -36,6 +36,7 @@ import {
   RouterStateSerializer,
 } from '@ngrx/router-store';
 import { AuthModule } from './@auth/auth.module';
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { AuthModule } from './@auth/auth.module';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    MyDatePickerModule,
     HttpModule,
     MomentModule,
     CoreModule.forRoot(),

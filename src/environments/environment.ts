@@ -10,5 +10,5 @@
 
 export const environment = {
   production: false,
-  origin: 'http://localhost:3000'
+  origin: 'http://tibeb-back-bruck.c9users.io'
 };

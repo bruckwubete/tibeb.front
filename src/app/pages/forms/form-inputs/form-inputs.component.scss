@@ -3,6 +3,22 @@
 @import '~@nebular/theme/styles/global/bootstrap/breakpoints';
 
 @include nb-install-component() {
+  
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: white;
+    background-image: linear-gradient(to right, #00d9bf, #00d977);
+    box-shadow: 0 3px 0 0 #00bb85, 0 2px 8px 0 #00d99b, 0 4px 10px 0 rgba(33, 7, 77, 0.5);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border: none;
+  }
 
   nb-card-body {
     overflow: visible;
@@ -88,6 +104,24 @@
     &::before {
       content: '\F47D';
       font-family: 'Ionicons';
+      font-size: 2rem;
+      position: absolute;
+      z-index: 100;
+      left: 1rem;
+      top: 0.25rem;
+    }
+  }
+  
+  .input-group.has-budget-icon {
+    position: relative;
+
+    .form-control {
+      padding-left: 3rem;
+    }
+
+    &::before {
+      content: '\f155';
+      font: 14px/1 FontAwesome;
       font-size: 2rem;
       position: absolute;
       z-index: 100;

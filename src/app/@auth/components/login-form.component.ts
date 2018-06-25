@@ -118,7 +118,7 @@ import { EtmdbAuthProvider } from '../../@core/auth/auth.provider'
 
   template: `
     <nb-auth-block>
-      <h2 class="title">Sign In form NGRX BRUCK</h2>
+      <h2 class="title">Sign In</h2>
       <small class="form-text sub-title">Hello! Sign in with your email</small>
 
       <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">

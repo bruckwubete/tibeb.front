@@ -5,6 +5,7 @@ import {HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/htt
 import { Injector } from '@angular/core';
 import { NbAbstractAuthProvider, NbAuthResult } from '@nebular/auth';
 import { TibebTokenService } from '../../services/overrides/tibeb-token-service';
+import { environment } from "../../../environments/environment";
 
 export interface EtmdbAuthProviderConfig {
   delay?: number;
@@ -21,7 +22,7 @@ export class EtmdbAuthProvider extends NbAbstractAuthProvider {
     super()
     this._tokenService = _tokenService
     this._tokenService.init({
-      apiBase:                    'http://localhost:3000',
+      apiBase:                    `${environment.origin}`,
       apiPath:                    'api/v1',
 
       signInPath:                 'auth/sign_in',
