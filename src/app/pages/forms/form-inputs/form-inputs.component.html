@@ -12,8 +12,7 @@
         <div class="row full-name-inputs">
           <div class="col-sm-6 input-group">
             <form #myForm="ngForm" novalidate>
-                <my-date-picker name="mydate" [options]="myDatePickerOptions"
-                                [(ngModel)]="model" required></my-date-picker>
+                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
             </form>
           </div>
           <div class="input-group has-budget-icon col-sm-6">
@@ -21,30 +20,42 @@
             <input type="text" placeholder="Budget" class="form-control"/>
           </div>
         </div>
+        <div class="input-group">
+          <nb-checkbox><span>Adult</span></nb-checkbox>
+          <nb-checkbox><span>In Cinemas</span></nb-checkbox>
+        </div>
         <div class="form-group">
          <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Profile Picture</label> <span> &nbsp;{{this.fileName}}</span> </div>
          <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)" multiple/>
         </div>
-        <div class="input-group">
-          <input type="password" placeholder="Password" class="form-control"/>
-        </div>
         <div class="input-group input-group-rounded">
-          <input type="text" placeholder="Rounded border" class="form-control"/>
+          <input type="text" placeholder="Home Page" class="form-control"/>
         </div>
-        <div class="form-group">
-          <input type="text" placeholder="Project" class="form-control"/>
-          <small class="form-text">A block of help text that breaks into a new line and may extend beyond one line.
-          </small>
-        </div>
-        <div class="input-group">
-          <input type="text" placeholder="Disabled input" class="form-control" disabled/>
-        </div>
-        <div class="input-group input-group-sm">
-          <input type="text" placeholder="Small Input" class="form-control"/>
-        </div>
-        <div class="input-group input-group-lg">
-          <input type="text" placeholder="Large Input" class="form-control"/>
-        </div>
+        <nb-card>
+          <!--<nb-card-header>Actors</nb-card-header>-->
+          <!--<nb-card-body>-->
+            <nb-tabset>
+              <nb-tab tabTitle="Find Actors">
+                <div class="contact" *ngFor="let c of contacts">
+                  <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
+                  <button type="button" class="tcon tcon-menu--xbutterfly" aria-label="toggle menu">
+                    <span class="tcon-menu__lines" aria-hidden="true"></span>
+                    <span class="tcon-visuallyhidden">toggle menu</span>
+                  </button>
+                  <button type="button" class="tcon tcon-remove tcon-remove--check" aria-label="remove item">
+                    <span class="tcon-visuallyhidden">remove item</span>
+                  </button>
+                </div>
+              </nb-tab>
+              <nb-tab tabTitle="Added Actors">
+                <span>Content #2</span>
+              </nb-tab>
+              <nb-tab tabTitle="Create Actors">
+                <span>Content #3</span>
+              </nb-tab>
+            </nb-tabset>
+          <!--</nb-card-body>-->
+        </nb-card>
       </nb-card-body>
     </nb-card>
 
