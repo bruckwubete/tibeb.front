@@ -3,6 +3,16 @@
 @import '~@nebular/theme/styles/global/bootstrap/breakpoints';
 @import '~@nebular/theme/styles/global/bootstrap/hero-buttons';
 
+$tcon-size: 40px !default;
+$tcon-transition: .3s !default;
+$tcon-jstransform: 'tcon-transform' !default;
+
+$tcon-plus-bg: transparent !default;
+$tcon-circle-radius: 80% !default;
+$tcon-plus-radius: ($tcon-size / 8) !default;
+$tcon-plus-color: #00f9a6 !default;
+$tcon-remove-color: #00f9a6 !default;
+
 @include nb-install-component() {
   
   input[type="file"] {
@@ -225,152 +235,98 @@
   // }
   
   
-    
-    .tcon {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: none;
-    cursor: pointer;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    height: 40px;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    width: 40px;
-    background: transparent;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-tap-highlight-color: transparent; }
-    .tcon > * {
-      display: block; }
-    .tcon:hover, .tcon:focus {
-      outline: none; }
-    .tcon::-moz-focus-inner {
-      border: 0; }
-  
-  .tcon-menu__lines {
-    display: inline-block;
-    height: 5.71429px;
-    width: 40px;
-    border-radius: 2.85714px;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    background: black;
-    position: relative; }
-    .tcon-menu__lines::before, .tcon-menu__lines::after {
-      display: inline-block;
-      height: 5.71429px;
-      width: 40px;
-      border-radius: 2.85714px;
-      -webkit-transition: 0.3s;
-      transition: 0.3s;
-      background: black;
-      content: '';
-      position: absolute;
-      left: 0;
-      -webkit-transform-origin: 2.85714px center;
-      transform-origin: 2.85714px center;
-      width: 100%; }
-    .tcon-menu__lines::before {
-      top: 10px; }
-    .tcon-menu__lines::after {
-      top: -10px; }
-    .tcon-transform .tcon-menu__lines {
-      -webkit-transform: scale3d(0.8, 0.8, 0.8);
-      transform: scale3d(0.8, 0.8, 0.8); }
-  
-  .tcon-menu--xbutterfly {
-    width: auto; }
-    .tcon-menu--xbutterfly .tcon-menu__lines::before, .tcon-menu--xbutterfly .tcon-menu__lines::after {
-      -webkit-transform-origin: 50% 50%;
-      transform-origin: 50% 50%;
-      -webkit-transition: top .3s .6s ease, -webkit-transform .3s ease;
-      transition: top .3s .6s ease, -webkit-transform .3s ease;
-      transition: top .3s .6s ease, transform .3s ease;
-      transition: top .3s .6s ease, transform .3s ease, -webkit-transform .3s ease; }
-    .tcon-menu--xbutterfly.tcon-transform .tcon-menu__lines {
-      background: transparent; }
-      .tcon-menu--xbutterfly.tcon-transform .tcon-menu__lines::before, .tcon-menu--xbutterfly.tcon-transform .tcon-menu__lines::after {
-        top: 0;
-        -webkit-transition: top .3s ease, -webkit-transform .3s .5s ease;
-        transition: top .3s ease, -webkit-transform .3s .5s ease;
-        transition: top .3s ease, transform .3s .5s ease;
-        transition: top .3s ease, transform .3s .5s ease, -webkit-transform .3s .5s ease;
-        width: 40px; }
-      .tcon-menu--xbutterfly.tcon-transform .tcon-menu__lines::before {
-        -webkit-transform: rotate3d(0, 0, 1, 45deg);
-        transform: rotate3d(0, 0, 1, 45deg); }
-      .tcon-menu--xbutterfly.tcon-transform .tcon-menu__lines::after {
-        -webkit-transform: rotate3d(0, 0, 1, -45deg);
-        transform: rotate3d(0, 0, 1, -45deg); }
-  
-  .tcon-visuallyhidden {
+
+.tcon {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: $tcon-size;
+  transition: $tcon-transition;
+  user-select: none;
+  width: $tcon-size;
+  background: transparent;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+
+  > * {
+    display: block;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none; // see issue #36 https://github.com/grayghostvisuals/transformicons/issues/36
+  }
+  &::-moz-focus-inner {
     border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
+  }
+}
+
+.tcon-plus {
+  height: $tcon-size;
+  position: relative;
+  transform: scale(.75);
+  width: $tcon-size;
+
+  &::before,
+  &::after {
+    content: "";
+    border-radius: 2px;
+    display: block;
+    width: 85%;
+    height: 25%;
     position: absolute;
-    width: 1px; }
-    .tcon-visuallyhidden:active, .tcon-visuallyhidden:focus {
-      clip: auto;
-      height: auto;
-      margin: 0;
-      overflow: visible;
-      position: static;
-      width: auto; }
-  
-  .tcon-remove {
-    height: 40px;
-    position: relative;
-    -webkit-transform: scale(0.75);
-    transform: scale(0.75);
-    width: 40px; }
-    .tcon-remove::before, .tcon-remove::after {
-      content: "";
-      display: block;
-      height: 25%;
+    top: 37%;
+    left: 8%;
+    transition: $tcon-transition;
+    background: black;
+  }
+
+  &:after {
+    transform: rotate(90deg);
+  }
+}
+
+.tcon-plus--check {
+  &.#{$tcon-jstransform} {
+    &::before {
+      transform: rotate(-135deg) translate(5%, -10%);
+      top: 50%;
+      width: 55%;
+      background: #00f9a6;
+    }
+
+    &::after {
+      transform: rotate(-45deg) translate(20%, 10%); 
+      top: 50%;
       width: 85%;
-      position: absolute;
-      top: 37%;
-      left: 8%;
-      -webkit-transition: 0.3s;
-      transition: 0.3s;
-      background: black; }
-    .tcon-remove::before {
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg); }
-    .tcon-remove::after {
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg); }
-  
-  .tcon-remove--check.tcon-transform::before {
-    -webkit-transform: rotate(-135deg) translate(5%, -10%);
-    transform: rotate(-135deg) translate(5%, -10%);
-    top: 50%;
-    width: 55%; }
-  
-  .tcon-remove--check.tcon-transform::after {
-    -webkit-transform: rotate(-45deg) translate(20%, 10%);
-    transform: rotate(-45deg) translate(20%, 10%);
-    top: 50%;
-    width: 85%; }
-    
-    
-    
-    
-  
+      background: #00f9a6;
+    }
+  }
+}
+
+// see issue #7 https://github.com/grayghostvisuals/transformicons/issues/7#issuecomment-59813596
+.tcon-visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+
+  &:active,
+  &:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+  }
+}
 }

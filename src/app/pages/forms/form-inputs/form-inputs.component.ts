@@ -14,6 +14,8 @@ export class FormInputsComponent implements OnInit {
   movie: any = {};
   submitted: boolean = false;
   fileName: String;
+  contacts = []
+  recent = []
   
  constructor(private userService: UserService){}
   
@@ -51,5 +53,9 @@ export class FormInputsComponent implements OnInit {
  fileChangeEvent(fileInput: any) {
     Array.from(fileInput.target.files).forEach(file => this.movie.posters.push(file))
     this.fileName = fileInput.target.files[0].name
+  }
+  
+  transform(event, item){
+    event.path[0].classList.toggle('tcon-transform'
   }
 }
