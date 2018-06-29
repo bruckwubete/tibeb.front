@@ -6,7 +6,6 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS_TOKEN } from '@nebular/auth';
-import _ from 'lodash'
 import * as fromAuth from '../../reducers';
 import { Store, select } from '@ngrx/store';
 import * as Auth from '../../actions/auth';

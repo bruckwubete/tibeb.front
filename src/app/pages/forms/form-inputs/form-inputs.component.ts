@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
 import { UserService } from '../../../@core/data/users.service';
+import * as _ from "lodash";
 
 @Component({
   selector: 'ngx-form-inputs',
@@ -21,6 +22,7 @@ export class FormInputsComponent implements OnInit {
   
   ngOnInit() {
     this.movie.posters = new Array<File>();
+    this.movie.actors = new Array<Object>();
     this.userService.getUsers()
       .subscribe((users: any) => {
         this.contacts = [
@@ -50,12 +52,30 @@ export class FormInputsComponent implements OnInit {
       dateFormat: 'dd.mm.yyyy',
   };
  public model: any = { date: { year: 2018, month: 10, day: 9 } };
+
  fileChangeEvent(fileInput: any) {
     Array.from(fileInput.target.files).forEach(file => this.movie.posters.push(file))
     this.fileName = fileInput.target.files[0].name
   }
   
-  transform(event, item){
-    event.path[0].classList.toggle('tcon-transform'
+  addActor(event, actor) {
+    const actorIndex = _.findIndex(this.movie.actors, function(a) {
+      return a['user'].name === actor.user.name
+    })
+    if (actorIndex === -1) {
+      actor.element = event.path[0]
+      this.movie.actors = _.union(this.movie.actors, [actor]);
+    } else {
+      this.movie.actors.splice(actorIndex, 1)
+    }
+    event.path[0].classList.toggle('tcon-transform')
+  }
+
+  removeActor(event, actor) {
+    this.movie.actors = _.filter(this.movie.actors, function(a) {
+      return a['user'].name !== actor.user.name
+    })
+    actor.element.classList.toggle('tcon-transform')
+    event.path[0].classList.toggle('tcon-transform')
   }
 }

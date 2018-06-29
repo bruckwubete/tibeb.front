@@ -6,7 +6,6 @@
  */
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS_TOKEN } from '@nebular/auth';
-import _ from 'lodash'
 import { Component, OnInit, Input, Inject, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthenticatePayload, RegisterPayload } from '../models/user';

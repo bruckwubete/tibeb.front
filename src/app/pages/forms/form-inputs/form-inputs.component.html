@@ -38,13 +38,18 @@
               <nb-tab tabTitle="Find Actors">
                 <div class="contact" *ngFor="let c of contacts">
                   <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
-                  <button type="button" class="tcon tcon-plus tcon-plus--check" aria-label="add item" (click)="this.transform($event, item)">
+                  <button type="button" class="tcon tcon-plus tcon-plus--check" aria-label="add item" (click)="this.addActor($event, c)">
                     <span class="tcon-visuallyhidden">add item</span>
                   </button>
                 </div>
               </nb-tab>
               <nb-tab tabTitle="Added Actors">
-                <span>Content #2</span>
+                <div class="contact" *ngFor="let c of this.movie.actors">
+                  <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
+                  <button type="button" class="tcon tcon-remove tcon-remove--check" aria-label="remove item" (click)="this.removeActor($event, c)">
+                    <span class="tcon-visuallyhidden">remove item</span>
+                  </button>
+                </div>
               </nb-tab>
               <nb-tab tabTitle="Create Actors">
                 <span>Content #3</span>
