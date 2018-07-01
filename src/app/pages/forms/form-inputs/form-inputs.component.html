@@ -3,60 +3,122 @@
     <nb-card>
       <nb-card-header>Register Movie</nb-card-header>
       <nb-card-body>
-        <div class="input-group">
-          <input type="text" placeholder="Title" class="form-control"/>
-        </div>
-        <div class="input-group">
-          <textarea rows="5" placeholder="Overview" class="form-control"></textarea>
-        </div>
-        <div class="row full-name-inputs">
-          <div class="col-sm-6 input-group">
-            <form #myForm="ngForm" novalidate>
-                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
-            </form>
-          </div>
-          <div class="input-group has-budget-icon col-sm-6">
-            <i class="fas fa-dollar-sign"></i>
-            <input type="text" placeholder="Budget" class="form-control"/>
-          </div>
-        </div>
-        <div class="input-group">
-          <nb-checkbox><span>Adult</span></nb-checkbox>
-          <nb-checkbox><span>In Cinemas</span></nb-checkbox>
-        </div>
-        <div class="form-group">
-         <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Profile Picture</label> <span> &nbsp;{{this.fileName}}</span> </div>
-         <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)" multiple/>
-        </div>
-        <div class="input-group input-group-rounded">
-          <input type="text" placeholder="Home Page" class="form-control"/>
-        </div>
-        <nb-card>
-          <!--<nb-card-header>Actors</nb-card-header>-->
-          <!--<nb-card-body>-->
-            <nb-tabset>
-              <nb-tab tabTitle="Find Actors">
-                <div class="contact" *ngFor="let c of contacts">
-                  <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
-                  <button type="button" class="tcon tcon-plus tcon-plus--check" aria-label="add item" (click)="this.addActor($event, c)">
-                    <span class="tcon-visuallyhidden">add item</span>
-                  </button>
-                </div>
-              </nb-tab>
-              <nb-tab tabTitle="Added Actors">
-                <div class="contact" *ngFor="let c of this.movie.actors">
-                  <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
-                  <button type="button" class="tcon tcon-remove tcon-remove--check" aria-label="remove item" (click)="this.removeActor($event, c)">
-                    <span class="tcon-visuallyhidden">remove item</span>
-                  </button>
-                </div>
-              </nb-tab>
-              <nb-tab tabTitle="Create Actors">
-                <span>Content #3</span>
-              </nb-tab>
-            </nb-tabset>
-          <!--</nb-card-body>-->
-        </nb-card>
+          <collapsible-list [type]="'accordion'">
+  
+            <collapsible-list-item>
+              <collapsible-header class="waves-effect">
+                General Information
+              </collapsible-header>
+              <collapsible-body [expanded]="true">
+                <div class="input-group">
+                    <input type="text" placeholder="Title" class="form-control"/>
+                  </div>
+                  <div class="input-group">
+                    <textarea rows="5" placeholder="Overview" class="form-control"></textarea>
+                  </div>
+                  <div class="row full-name-inputs">
+                    <div class="col-sm-6 input-group">
+                      <form #myForm="ngForm" novalidate>
+                          <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+                      </form>
+                    </div>
+                    <div class="input-group has-budget-icon col-sm-6">
+                      <i class="fas fa-dollar-sign"></i>
+                      <input type="text" placeholder="Budget" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <nb-checkbox><span>Adult</span></nb-checkbox>
+                    <nb-checkbox><span>In Cinemas</span></nb-checkbox>
+                  </div>
+                  <div class="form-group">
+                   <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Upload Poster</label> <span> &nbsp;{{this.fileName}}</span> </div>
+                   <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)" multiple/>
+                  </div>
+                  <div class="input-group input-group-rounded">
+                    <input type="text" placeholder="Home Page" class="form-control"/>
+                  </div>
+              </collapsible-body>
+            </collapsible-list-item>
+          
+            <collapsible-list-item>
+              <collapsible-header class="waves-effect">
+                Actors
+              </collapsible-header>
+              <collapsible-body [expanded]="false">
+                <nb-card>
+                    <!--<nb-card-header>Actors</nb-card-header>-->
+                    <!--<nb-card-body>-->
+                      <nb-tabset>
+                        <nb-tab tabTitle="Find Actors">
+                          <div class="contact" *ngFor="let c of contacts">
+                            <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
+                            <button type="button" class="tcon tcon-plus tcon-plus--check" aria-label="add item" (click)="this.addActor($event, c)">
+                              <span class="tcon-visuallyhidden">add item</span>
+                            </button>
+                          </div>
+                        </nb-tab>
+                        <nb-tab tabTitle="Added Actors">
+                          <div class="contact" *ngFor="let c of this.movie.actors">
+                            <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
+                            <button type="button" class="tcon tcon-remove tcon-remove--check" aria-label="remove item" (click)="this.removeActor($event, c)">
+                              <span class="tcon-visuallyhidden">remove item</span>
+                            </button>
+                          </div>
+                        </nb-tab>
+                        <nb-tab tabTitle="Create Actors">
+                          <nb-card>
+                            <nb-card-body>
+                              <div class="row full-name-inputs">
+                                <div class="col-sm-6 input-group">
+                                  <input type="text" placeholder="First Name" class="form-control"/>
+                                </div>
+                                <div class="col-sm-6 input-group">
+                                    <input type="text" placeholder="Last Name" class="form-control"/>
+                                </div>
+                              </div>
+                              <div class="input-group">
+                                <textarea rows="5" placeholder="Bio" class="form-control"></textarea>
+                              </div>
+                              <div class="row full-name-inputs">
+                                <div class="col-sm-6 input-group">
+                                  <form #myForm="ngForm" novalidate>
+                                      <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+                                  </form>
+                                </div>
+                                <div class="input-group has-budget-icon col-sm-6">
+                                  <i class="fas fa-dollar-sign"></i>
+                                  <input type="text" placeholder="Phone Number" class="form-control"/>
+                                </div>
+                              </div>
+                              <div class="input-group">
+                                <nb-checkbox><span>Retired</span></nb-checkbox>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Profile Picture</label> <span> &nbsp;{{this.fileName}}</span> </div>
+                                <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)" multiple/>
+                              </div>
+                              <div class="row full-name-inputs">
+                                <div class="col-sm-6 input-group input-group-rounded">
+                                  <input type="text" placeholder="Facebook Account Path" class="form-control"/>
+                                </div>
+                                <div class="col-sm-6 input-group input-group-rounded">
+                                    <input type="text" placeholder="Twitter Account Path" class="form-control"/>
+                                </div>
+                              </div>
+                              <div class="input-group">
+                                <button class="btn btn-primary" type="button">Submit</button>
+                              </div>
+                            </nb-card-body>
+                          </nb-card>
+                        </nb-tab>
+                      </nb-tabset>
+                    <!--</nb-card-body>-->
+                  </nb-card>
+              </collapsible-body>
+            </collapsible-list-item>
+          
+          </collapsible-list>
       </nb-card-body>
     </nb-card>
 

@@ -30,6 +30,10 @@ $tcon-remove-color: #00f9a6 !default;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     border: none;
   }
+  collapsible-header {
+    background-color: #3d3780;
+    color: white;
+  }
 
   nb-card-body {
     overflow: visible;
