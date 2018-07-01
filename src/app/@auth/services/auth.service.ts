@@ -9,6 +9,7 @@ import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { User, AuthenticatePayload } from '../models/user';
 import { environment } from "../../../environments/environment";
+import { UserService } from '../../@core/data/users.service';
 
 export interface EtmdbAuthProviderConfig {
   delay?: number;
@@ -108,13 +109,13 @@ export class AuthService {
 
   // Helper Functions
 
-  private parseUser(user: any) :Observable<User> {
+  private parseUser(user: any) :User {
     const userJson = user.data || user.json().data
 
-    return of({
+    return {
       firstName: userJson.first_name,
       lastName: userJson.last_name,
       value: userJson
-    })
+    }
  }
 }
