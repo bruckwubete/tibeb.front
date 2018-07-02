@@ -4,7 +4,7 @@
       <nb-card-header>Register Movie</nb-card-header>
       <nb-card-body>
           <mat-accordion>
-              <mat-expansion-panel>
+              <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     General Information
@@ -12,25 +12,25 @@
                 </mat-expansion-panel-header>
             
                 <div class="input-group">
-                    <input type="text" placeholder="Title" class="form-control"/>
+                    <input type="text" placeholder="Title" class="form-control" [(ngModel)]="movie.title"/>
                   </div>
                   <div class="input-group">
-                    <textarea rows="5" placeholder="Overview" class="form-control"></textarea>
+                    <textarea rows="5" placeholder="Overview" class="form-control" [(ngModel)]="movie.overview"></textarea>
                   </div>
                   <div class="row full-name-inputs">
                     <div class="col-sm-6 input-group">
                       <form #myForm="ngForm" novalidate>
-                          <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+                          <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="movie.releaseDate" required></my-date-picker>
                       </form>
                     </div>
                     <div class="input-group has-budget-icon col-sm-6">
                       <i class="fas fa-dollar-sign"></i>
-                      <input type="text" placeholder="Budget" class="form-control"/>
+                      <input type="text" placeholder="Budget" class="form-control" [(ngModel)]="movie.budget"/>
                     </div>
                   </div>
                   <div class="input-group">
-                    <nb-checkbox><span>Adult</span></nb-checkbox>
-                    <nb-checkbox><span>In Cinemas</span></nb-checkbox>
+                    <nb-checkbox [(ngModel)]="movie.adult"><span>Adult</span></nb-checkbox>
+                    <nb-checkbox [(ngModel)]="movie.inCinemas"><span>In Cinemas</span></nb-checkbox>
                   </div>
                   <div class="form-group">
                    <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Upload Poster</label> <span> &nbsp;{{this.fileName}}</span> </div>
@@ -47,7 +47,7 @@
                    Actors
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <nb-card>
+                <nb-card class="card-with-no-bottom-shadow">
                     <!--<nb-card-header>Actors</nb-card-header>-->
                     <!--<nb-card-body>-->
                       <nb-tabset>
@@ -60,7 +60,7 @@
                           </div>
                         </nb-tab>
                         <nb-tab tabTitle="Added Actors">
-                          <div class="contact" *ngFor="let c of this.movie.actors">
+                          <div class="contact" *ngFor="let c of movie.actors">
                             <nb-user [picture]="c.user.picture" [name]="c.user.name" [title]="c.type" size="large"></nb-user>
                             <button type="button" class="tcon tcon-remove tcon-remove--check" aria-label="remove item" (click)="this.removeActor($event, c)">
                               <span class="tcon-visuallyhidden">remove item</span>
@@ -68,49 +68,61 @@
                           </div>
                         </nb-tab>
                         <nb-tab tabTitle="Create Actors">
-                          <nb-card>
-                            <nb-card-body>
-                              <div class="row full-name-inputs">
-                                <div class="col-sm-6 input-group">
-                                  <input type="text" placeholder="First Name" class="form-control"/>
+                          <nb-card class="card-with-no-bottom-shadow">
+                            <div *ngIf="!showCreateActor;else createActor">
+                              <nb-card-body>
+                                <div class="contact" *ngFor="let c of movie.newActors">
+                                    <nb-user [picture]="c.profilePics[0].path" [name]="c.fullName" [title]="'actor'" size="large"></nb-user>
+                                    <button type="button" class="tcon tcon-remove tcon-remove--check" aria-label="remove item" (click)="this.removeCreatedActor($event, c)">
+                                      <span class="tcon-visuallyhidden">remove item</span>
+                                    </button>
+                                  </div>
+                              </nb-card-body>
+                            </div>
+                            <ng-template #createActor>
+                              <nb-card-body>
+                                <div class="row full-name-inputs">
+                                  <div class="col-sm-6 input-group">
+                                    <input type="text" placeholder="First Name" class="form-control" [(ngModel)]="actor.firstName"/>
+                                  </div>
+                                  <div class="col-sm-6 input-group">
+                                      <input type="text" placeholder="Last Name" class="form-control" [(ngModel)]="actor.lastName"/>
+                                  </div>
                                 </div>
-                                <div class="col-sm-6 input-group">
-                                    <input type="text" placeholder="Last Name" class="form-control"/>
+                                <div class="input-group">
+                                  <textarea rows="5" placeholder="Bio" class="form-control" [(ngModel)]="actor.bio"></textarea>
                                 </div>
-                              </div>
-                              <div class="input-group">
-                                <textarea rows="5" placeholder="Bio" class="form-control"></textarea>
-                              </div>
-                              <div class="row full-name-inputs">
-                                <div class="col-sm-6 input-group">
-                                  <form #myForm="ngForm" novalidate>
-                                      <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
-                                  </form>
+                                <div class="row full-name-inputs">
+                                  <div class="col-sm-6 input-group">
+                                    <form #myForm="ngForm" novalidate>
+                                        <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="actor.dob" required></my-date-picker>
+                                    </form>
+                                  </div>
+                                  <div class="input-group has-phone-number-icon col-sm-6">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <input type="text" placeholder="Phone Number" class="form-control" [(ngModel)]="actor.phoneNumber"/>
+                                  </div>
                                 </div>
-                                <div class="input-group has-budget-icon col-sm-6">
-                                  <i class="fas fa-dollar-sign"></i>
-                                  <input type="text" placeholder="Phone Number" class="form-control"/>
+                                <div class="input-group">
+                                  <nb-checkbox [(ngModel)]="actor.retired"><span>Retired</span></nb-checkbox>
                                 </div>
-                              </div>
-                              <div class="input-group">
-                                <nb-checkbox><span>Retired</span></nb-checkbox>
-                              </div>
-                              <div class="form-group">
-                                <div class="form-control"><label for="input-profile-pic" class="custom-file-upload">Profile Picture</label> <span> &nbsp;{{this.fileName}}</span> </div>
-                                <input id="input-profile-pic" type="file" (change)="fileChangeEvent($event)" multiple/>
-                              </div>
-                              <div class="row full-name-inputs">
-                                <div class="col-sm-6 input-group input-group-rounded">
-                                  <input type="text" placeholder="Facebook Account Path" class="form-control"/>
+                                <div class="form-group">
+                                  <div class="form-control"><label for="actor-profile-pic" class="custom-file-upload">Profile Picture</label> <span> &nbsp;{{this.profilePicFileName}}</span> </div>
+                                  <input id="actor-profile-pic" type="file" (change)="actorProfilePicUpload($event)" multiple/>
                                 </div>
-                                <div class="col-sm-6 input-group input-group-rounded">
-                                    <input type="text" placeholder="Twitter Account Path" class="form-control"/>
+                                <div class="row full-name-inputs">
+                                  <div class="col-sm-6 input-group input-group-rounded">
+                                    <input [(ngModel)]="actor.socialLinks.facebook" type="text" placeholder="Facebook Account Path" class="form-control"/>
+                                  </div>
+                                  <div class="col-sm-6 input-group input-group-rounded">
+                                      <input [(ngModel)]="actor.socialLinks.twiter" type="text" placeholder="Twitter Account Path" class="form-control"/>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="input-group">
-                                <button class="btn btn-primary" type="button">Submit</button>
-                              </div>
-                            </nb-card-body>
+                                <div class="input-group full-name-inputs">
+                                  <button (click)="submitActor()" class="input-group btn btn-primary actor-submit-button" type="button">Create Actor</button>
+                                </div>
+                              </nb-card-body>
+                            </ng-template>
                           </nb-card>
                         </nb-tab>
                       </nb-tabset>
@@ -118,195 +130,10 @@
                   </nb-card>
               </mat-expansion-panel>
             </mat-accordion>
+            <div class="input-group full-name-inputs movie-submit-button">
+              <button (click)="submitMovie()" class="input-group btn btn-primary actor-submit-button" type="button">Create Movie</button>
+            </div>
       </nb-card-body>
     </nb-card>
-
-  <!--  <nb-card>-->
-  <!--    <nb-card-header>Input Groups</nb-card-header>-->
-  <!--    <nb-card-body>-->
-  <!--      <div class="input-group">-->
-  <!--        <span class="input-group-addon success">@</span>-->
-  <!--        <input type="text" class="form-control" placeholder="Username"/>-->
-  <!--      </div>-->
-  <!--      <div class="input-group mail-btn-group">-->
-  <!--        <span class="input-group-btn">-->
-  <!--          <button class="btn btn-primary btn-icon">-->
-  <!--            <i class="ion-ios-email-outline"></i>-->
-  <!--          </button>-->
-  <!--        </span>-->
-  <!--        <input type="text" class="form-control" placeholder="Recipient's username">-->
-  <!--        <span class="input-group-btn">-->
-  <!--          <button class="btn btn-primary">-->
-  <!--            @example.com-->
-  <!--          </button>-->
-  <!--        </span>-->
-  <!--      </div>-->
-  <!--      <div class="input-group">-->
-  <!--        <input type="text" class="form-control" placeholder="Search for...">-->
-  <!--        <span class="input-group-btn">-->
-  <!--          <button class="btn btn-danger">-->
-  <!--            Search-->
-  <!--          </button>-->
-  <!--        </span>-->
-  <!--      </div>-->
-  <!--      <div class="input-group">-->
-  <!--        <div class="dropdown input-group-btn" ngbDropdown>-->
-  <!--          <button type="button" class="btn btn-success dropdown-toggle" ngbDropdownToggle>-->
-  <!--            Action-->
-  <!--          </button>-->
-  <!--          <ul class="dropdown-menu" ngbDropdownMenu>-->
-  <!--            <li class="dropdown-item">Action</li>-->
-  <!--            <li class="dropdown-item">Another action</li>-->
-  <!--            <li class="dropdown-item">Something else here</li>-->
-  <!--            <div role="separator" class="dropdown-divider"></div>-->
-  <!--            <li class="dropdown-item">Separated link</li>-->
-  <!--          </ul>-->
-  <!--        </div>-->
-  <!--        <input type="text" class="form-control">-->
-  <!--      </div>-->
-  <!--    </nb-card-body>-->
-  <!--  </nb-card>-->
-
-  <!--  <nb-card>-->
-  <!--    <nb-card-header>Selects</nb-card-header>-->
-  <!--    <nb-card-body>-->
-  <!--      <div class="form-group">-->
-  <!--        <label>Simple Select</label>-->
-  <!--        <select class="form-control">-->
-  <!--          <option>Minsk</option>-->
-  <!--          <option>Gomel</option>-->
-  <!--          <option>Brest</option>-->
-  <!--          <option>Grodno</option>-->
-  <!--          <option>Mogilev</option>-->
-  <!--        </select>-->
-  <!--      </div>-->
-  <!--      <div class="form-group">-->
-  <!--        <label>Multiple Select</label>-->
-  <!--        <select multiple class="form-control">-->
-  <!--          <option>Item 1</option>-->
-  <!--          <option>Item 2</option>-->
-  <!--          <option>Item 3</option>-->
-  <!--          <option>Item 4</option>-->
-  <!--          <option>Item 5</option>-->
-  <!--        </select>-->
-  <!--      </div>-->
-  <!--    </nb-card-body>-->
-  <!--  </nb-card>-->
-  <!--</div>-->
-
-  <!--<div class="col-lg-6">-->
-  <!--  <nb-card>-->
-  <!--    <nb-card-header>Input Styles</nb-card-header>-->
-  <!--    <nb-card-body>-->
-  <!--      <div class="input-group input-group-border-only">-->
-  <!--        <input type="text" placeholder="Border Only" class="form-control"/>-->
-  <!--      </div>-->
-  <!--      <div class="input-group">-->
-  <!--        <input type="text" placeholder="Default Input" class="form-control">-->
-  <!--      </div>-->
-  <!--      <div class="input-group input-group-fill-only">-->
-  <!--        <input type="text" placeholder="Fill Only" class="form-control">-->
-  <!--      </div>-->
-  <!--    </nb-card-body>-->
-  <!--  </nb-card>-->
-
-  <!--  <nb-card>-->
-  <!--    <nb-card-header>Validation States</nb-card-header>-->
-  <!--    <nb-card-body>-->
-  <!--      <div class="form-group">-->
-  <!--        <input type="text" placeholder="Input with Success" class="form-control form-control-success">-->
-  <!--      </div>-->
-  <!--      <div class="form-group">-->
-  <!--        <input type="text" placeholder="Input with Warning" class="form-control form-control-warning">-->
-  <!--      </div>-->
-  <!--      <div class="form-group">-->
-  <!--        <input type="text" placeholder="Input with Danger" class="form-control form-control-danger">-->
-  <!--      </div>-->
-  <!--      <div class="form-group validation-checkboxes row">-->
-  <!--        <nb-checkbox status="success" class="col-sm-4">Checkbox with Success</nb-checkbox>-->
-  <!--        <nb-checkbox status="warning" class="col-sm-4">Checkbox with Warning</nb-checkbox>-->
-  <!--        <nb-checkbox status="danger" class="col-sm-4">Checkbox with Danger</nb-checkbox>-->
-  <!--      </div>-->
-  <!--      <div class="form-group has-success">-->
-  <!--        <input type="text" placeholder="Input with Success Icon" class="form-control form-control-success">-->
-  <!--      </div>-->
-  <!--      <div class="form-group has-warning">-->
-  <!--        <input type="text" placeholder="Input with Warning Icon" class="form-control form-control-warning">-->
-  <!--      </div>-->
-  <!--      <div class="form-group has-danger">-->
-  <!--        <input type="text" placeholder="Input with Danger Icon" class="form-control form-control-danger">-->
-  <!--      </div>-->
-  <!--    </nb-card-body>-->
-  <!--  </nb-card>-->
-
-  <!--  <nb-card>-->
-  <!--    <nb-card-header>Checkboxes & Radios</nb-card-header>-->
-  <!--    <nb-card-body>-->
-  <!--      <div class="row demo-checkboxes-radio">-->
-  <!--        <div class="demo-checkboxes col-sm-4">-->
-  <!--          <nb-checkbox>Checkbox 1</nb-checkbox>-->
-  <!--          <nb-checkbox [value]="true">Checkbox 2</nb-checkbox>-->
-  <!--          <label class="custom-control custom-checkbox">-->
-  <!--            <input type="checkbox" class="custom-control-input">-->
-  <!--            <span class="custom-control-indicator"></span>-->
-  <!--            <span class="custom-control-description">Bootstrap Checkbox</span>-->
-  <!--          </label>-->
-  <!--        </div>-->
-  <!--        <div class="demo-radio col-sm-4">-->
-  <!--          <label class="custom-control custom-radio">-->
-  <!--            <input type="radio" class="custom-control-input" name="customRadio">-->
-  <!--            <span class="custom-control-indicator"></span>-->
-  <!--            <span class="custom-control-description">Radio 1</span>-->
-  <!--          </label>-->
-  <!--          <label class="custom-control custom-radio">-->
-  <!--            <input type="radio" class="custom-control-input" name="customRadio" checked>-->
-  <!--            <span class="custom-control-indicator"></span>-->
-  <!--            <span class="custom-control-description">Radio 2</span>-->
-  <!--          </label>-->
-  <!--          <label class="custom-control custom-radio">-->
-  <!--            <input type="radio" class="custom-control-input" name="customRadio">-->
-  <!--            <span class="custom-control-indicator"></span>-->
-  <!--            <span class="custom-control-description">Radio 3</span>-->
-  <!--          </label>-->
-  <!--        </div>-->
-  <!--        <div class="demo-disabled-checkbox-radio col-sm-4">-->
-  <!--          <nb-checkbox disabled>Disabled Checkbox</nb-checkbox>-->
-  <!--          <label class="custom-control custom-radio">-->
-  <!--            <input type="radio" class="custom-control-input" disabled>-->
-  <!--            <span class="custom-control-indicator"></span>-->
-  <!--            <span class="custom-control-description">Disabled Radio</span>-->
-  <!--          </label>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </nb-card-body>-->
-  <!--  </nb-card>-->
-
-  <!--  <nb-card>-->
-  <!--    <nb-card-body class="demo-rating">-->
-  <!--      <span class="rating-header">Rating</span>-->
-  <!--      <div>-->
-  <!--        <ngb-rating [(rate)]="starRate" max=5>-->
-  <!--          <ng-template let-fill="fill">-->
-  <!--            <span class="star fill" [class.filled]="fill === 100">-->
-  <!--              <i class="ion-android-star" *ngIf="fill === 100"></i>-->
-  <!--              <i class="ion-android-star-outline" *ngIf="fill !== 100"></i>-->
-  <!--            </span>-->
-  <!--          </ng-template>-->
-  <!--        </ngb-rating>-->
-  <!--        <span class="current-rate">{{ starRate }}</span>-->
-  <!--      </div>-->
-  <!--      <div>-->
-  <!--        <ngb-rating [(rate)]="heartRate" max=5>-->
-  <!--          <ng-template let-fill="fill">-->
-  <!--            <span class="star fill" [class.filled]="fill === 100">-->
-  <!--              <i class="ion-ios-heart" *ngIf="fill === 100"></i>-->
-  <!--              <i class="ion-ios-heart-outline" *ngIf="fill !== 100"></i>-->
-  <!--            </span>-->
-  <!--          </ng-template>-->
-  <!--        </ngb-rating>-->
-  <!--        <span class="current-rate">{{ heartRate }}</span>-->
-  <!--      </div>-->
-  <!--    </nb-card-body>-->
-  <!--  </nb-card>-->
   </div>
 </div>

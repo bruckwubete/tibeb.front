@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
 import { UserService } from '../../../@core/data/users.service';
 import * as _ from "lodash";
+import { User } from '/home/bwubete/workspace/tibeb.front/src/app/@auth/models/user';
 
 @Component({
   selector: 'ngx-form-inputs',
@@ -12,9 +13,12 @@ export class FormInputsComponent implements OnInit {
 
   starRate = 2;
   heartRate = 4;
+  actor: any = {};
   movie: any = {};
   submitted: boolean = false;
+  showCreateActor: boolean = true;
   fileName: String;
+  profilePicFileName: String
   contacts = []
   recent = []
   
@@ -22,7 +26,10 @@ export class FormInputsComponent implements OnInit {
   
   ngOnInit() {
     this.movie.posters = new Array<File>();
-    this.movie.actors = new Array<Object>();
+    this.movie.actors = new Array<User>();
+    this.movie.newActors = new Array<User>();
+    this.actor.socialLinks = {};
+    this.actor.profilePics = new Array<File>();
     this.userService.getUsers()
       .subscribe((users: any) => {
         this.contacts = [
@@ -57,6 +64,11 @@ export class FormInputsComponent implements OnInit {
     Array.from(fileInput.target.files).forEach(file => this.movie.posters.push(file))
     this.fileName = fileInput.target.files[0].name
   }
+
+  actorProfilePicUpload(fileInput: any) {
+    Array.from(fileInput.target.files).forEach(file => this.actor.profilePics.push(file))
+    this.profilePicFileName = fileInput.target.files[0].name
+  }
   
   addActor(event, actor) {
     const actorIndex = _.findIndex(this.movie.actors, function(a) {
@@ -77,5 +89,31 @@ export class FormInputsComponent implements OnInit {
     })
     actor.element.classList.toggle('tcon-transform')
     event.path[0].classList.toggle('tcon-transform')
+  }
+
+  removeCreatedActor(event, actor) {
+    this.movie.newActors = _.filter(this.movie.newActors, function(a) {
+      return a.fullName !== actor.fullName
+    })
+    this.showCreateActor = this.movie.newActors.length === 0;
+  }
+
+  submitActor(){    
+    this.actor.profilePics.forEach((a) => {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        a.path = event.target.result;
+      };
+      reader.readAsDataURL(a);
+    });
+    this.actor.fullName = this.actor.firstName + ' ' + this.actor.lastName;
+    this.movie.newActors.push(this.actor)
+    this.showCreateActor = false;
+    this.actor = {}
+  }
+
+  submitMovie(){
+    this.movie.actors = this.movie.actors.concat(this.movie.newActors)
+    console.log(this.movie)
   }
 }

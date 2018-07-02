@@ -19,6 +19,15 @@ $tcon-remove-color: #00f9a6 !default;
     display: none;
   }
 
+  .actor-submit-button {
+    justify-content: center;
+  }
+
+  .card-with-no-bottom-shadow {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
   .custom-file-upload {
     display: inline-block;
     border-radius: 5px;
@@ -81,6 +90,10 @@ $tcon-remove-color: #00f9a6 !default;
     flex-wrap: wrap;
   }
 
+  .movie-submit-button {
+    margin-top: 2%;
+  }
+
   .star {
     font-size: 1.5rem;
     color: nb-theme(color-fg);
@@ -132,6 +145,7 @@ $tcon-remove-color: #00f9a6 !default;
 
     .form-control {
       padding-left: 3rem;
+      border-radius: 0.5rem;
     }
 
     &::before {
@@ -140,8 +154,27 @@ $tcon-remove-color: #00f9a6 !default;
       font-size: 2rem;
       position: absolute;
       z-index: 100;
-      left: 1rem;
-      top: 0.25rem;
+      left: 1.5rem;
+      top: 0.5rem;
+    }
+  }
+
+  .input-group.has-phone-number-icon {
+    position: relative;
+
+    .form-control {
+      padding-left: 3rem;
+      border-radius: 0.5rem;
+    }
+
+    &::before {
+      content: '\f095';
+      font: 14px/1 FontAwesome;
+      font-size: 2rem;
+      position: absolute;
+      z-index: 100;
+      left: 1.5rem;
+      top: 0.5rem;
     }
   }
 
