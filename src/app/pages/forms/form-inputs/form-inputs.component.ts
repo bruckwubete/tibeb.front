@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
 import { UserService } from '../../../@core/data/users.service';
 import * as _ from "lodash";
-import { User } from '/home/bwubete/workspace/tibeb.front/src/app/@auth/models/user';
+import { User } from '../../../@auth/models/user';
 
 @Component({
   selector: 'ngx-form-inputs',
@@ -102,7 +102,7 @@ export class FormInputsComponent implements OnInit {
     this.actor.profilePics.forEach((a) => {
       const reader = new FileReader();
       reader.onload = function(event) {
-        a.path = event.target.result;
+        a.path = event.target;
       };
       reader.readAsDataURL(a);
     });
