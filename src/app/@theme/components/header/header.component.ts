@@ -7,6 +7,7 @@ import { map, take } from 'rxjs/operators';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import {  Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { LayoutService } from '../../../@core/data/layout.service';
 
 @Component({
   selector: 'ngx-header',
@@ -14,7 +15,6 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-
 
   @Input() position = 'normal';
 
@@ -28,7 +28,8 @@ export class HeaderComponent implements OnInit {
               private userService: UserService,
               private analyticsService: AnalyticsService,
               private router: Router,
-              private store: Store<fromAuth.State>) {
+              private store: Store<fromAuth.State>,
+              private layoutService: LayoutService) {
 
                 this.store.select(fromAuth.getUser)
                 .subscribe(user => { if(user) { user.value.pic_path = environment.origin + user.value.images[0].path; this.user = user.value;}});
@@ -39,11 +40,14 @@ export class HeaderComponent implements OnInit {
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
+    this.layoutService.changeLayoutSize();
+
     return false;
   }
 
   toggleSettings(): boolean {
     this.sidebarService.toggle(false, 'settings-sidebar');
+
     return false;
   }
 

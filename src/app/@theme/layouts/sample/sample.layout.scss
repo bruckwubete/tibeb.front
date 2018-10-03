@@ -49,6 +49,10 @@
 
     margin-top: nb-theme(sidebar-header-gap);
 
+    @include nb-for-theme(corporate) {
+      margin-top: 0;
+    }
+
     /deep/ .main-container {
       height: 74% !important;
       border-top-right-radius: nb-theme(radius);
@@ -70,16 +74,43 @@
       font-weight: bold;
       transition: padding 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.48);
 
+      @include nb-for-theme(corporate) {
+        border-radius: nb-theme(radius);
+      }
+
       i {
         font-size: 2rem;
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
       }
       span {
-        padding-left: 0.25rem;
+        @include nb-ltr(padding-left, 0.25rem);
+        @include nb-rtl(padding-right, 0.25rem);
       }
 
       i, span {
         vertical-align: middle;
+      }
+    }
+
+    /deep/ nb-menu {
+      & > .menu-items {
+        & > .menu-item:first-child {
+          .menu-title {
+            &::after {
+              content: 'new';
+              color: nb-theme(color-white);
+              margin-left: 1rem;
+              background: nb-theme(color-danger);
+              padding: 0 0.5rem;
+              border-radius: nb-theme(radius);
+              font-size: nb-theme(font-size-sm);
+            }
+          }
+        }
+      }
+
+      .nb-e-commerce {
+        font-size: 2rem;
       }
     }
 

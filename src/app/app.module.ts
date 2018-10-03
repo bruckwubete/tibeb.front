@@ -11,7 +11,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { NgModule } from '@angular/core';
-import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 
 import { AppComponent } from './app.component';
@@ -44,8 +44,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MyDatePickerModule,
-    HttpModule,
     MomentModule,
     CoreModule.forRoot(),
     NgbModule.forRoot(),

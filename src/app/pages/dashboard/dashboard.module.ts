@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { AngularEchartsModule } from 'ngx-echarts';
+
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
@@ -26,7 +27,7 @@ import { MomentModule } from 'angular2-moment';
 @NgModule({
   imports: [
     ThemeModule,
-    AngularEchartsModule,
+    NgxEchartsModule,
     NgxCarousel3dModule,
     MomentModule
   ],
