@@ -20,7 +20,7 @@ export class UserService {
   private userArray: any[];
 
   constructor(private _tokenService: TibebTokenService) {
-    // this.userArray = Object.values(this.users);
+     this.userArray = Object.values(this.users);
   }
 
   getUsers(): Observable<any> {
