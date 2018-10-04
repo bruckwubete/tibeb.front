@@ -4,6 +4,7 @@ import { Actor, RegisterPayload } from '../models/actor';
 export enum ActorActionTypes {
   Register = '[Actor] Register',
   Get = '[Actor] Get',
+  GetActorsByPage = '[Actor] GetByPage',
   Update = '[Actor] Update',
   Delete = '[Actor] Delete'
 }
@@ -15,6 +16,11 @@ export class Register implements Action {
 
 export class Get implements Action {
   readonly type = ActorActionTypes.Get;
+  constructor(public payload: any) {}
+}
+
+export class GetActorsByPage implements Action {
+  readonly type = ActorActionTypes.GetActorsByPage;
   constructor(public payload: any) {}
 }
 

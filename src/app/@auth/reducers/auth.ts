@@ -65,4 +65,4 @@ export function reducer(state = initialState, action: AuthActions): State {
 
 export const getLoggedIn = (state: State) => state.loggedIn;
 export const getRegistered = (state: State) => state.registered;
-export const getUser = (state: State) => state.user;
+export const getUser  = (state: State):User => state.user;
