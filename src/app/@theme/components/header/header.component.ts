@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
               private analyticsService: AnalyticsService,
               private router: Router,
               private store: Store<fromAuth.State>) {
-
                 this.store.select(fromAuth.getUser)
                 .subscribe(user => { if(user) { user.value.pic_path = environment.origin + user.value.images[0].path; this.user = user.value;}});
   }

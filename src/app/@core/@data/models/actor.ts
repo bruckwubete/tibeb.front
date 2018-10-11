@@ -1,8 +1,9 @@
-  export interface RegisterPayload extends Actor {
+  export interface RegisterActorPayload extends Actor {
 
   }
   
   export interface Actor {
+    id ?: String,
     firstName: String,
     lastName: String,
     fullName: String,

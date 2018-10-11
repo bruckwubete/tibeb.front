@@ -1,27 +1,33 @@
 import { Action } from '@ngrx/store';
-import { Actor, RegisterPayload } from '../models/actor';
+import { Actor, RegisterActorPayload } from '../models/actor';
 
 export enum ActorActionTypes {
   Register = '[Actor] Register',
   Get = '[Actor] Get',
-  GetActorsByPage = '[Actor] GetByPage',
+  QueryActors = '[Actor] QueryActors',
+  QueryActorsDone = '[Actor] QueryActors Done',
   Update = '[Actor] Update',
   Delete = '[Actor] Delete'
 }
 
 export class Register implements Action {
   readonly type = ActorActionTypes.Register;
-  constructor(public payload: { actor: Actor }) {}
+  constructor(public payload: { actor: RegisterActorPayload }) {}
 }
 
 export class Get implements Action {
   readonly type = ActorActionTypes.Get;
-  constructor(public payload: any) {}
+  constructor(public payload: Actor) {}
 }
 
-export class GetActorsByPage implements Action {
-  readonly type = ActorActionTypes.GetActorsByPage;
-  constructor(public payload: any) {}
+export class QueryActors implements Action {
+  readonly type = ActorActionTypes.QueryActors;
+  constructor(public payload: String) {}
+}
+
+export class QueryActorsDone implements Action {
+  readonly type = ActorActionTypes.QueryActors;
+  constructor(public payload: Array<Actor>) {}
 }
 
 export class Update implements Action {
@@ -38,4 +44,5 @@ export type ActorActions =
   | Register
   | Get
   | Update
-  | Delete;
+  | Delete
+  | QueryActors;
