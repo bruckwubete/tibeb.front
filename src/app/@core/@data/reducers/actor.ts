@@ -24,9 +24,17 @@ export function reducer(state = initialState, action: ActorActions): State {
     case ActorActionTypes.QueryActors: {
         return {
           ...state,
-          success: true,
+          success: false,
           actor: action.payload,
         };
+    }
+
+    case ActorActionTypes.QueryActorsDone: {
+      return {
+        ...state,
+        success: true,
+        actor: action.payload,
+      };
     }
 
     case ActorActionTypes.Delete: {

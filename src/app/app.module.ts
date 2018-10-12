@@ -3,7 +3,8 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF  } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -36,6 +37,8 @@ import {
   RouterStateSerializer,
 } from '@ngrx/router-store';
 import { AuthModule } from './@auth/auth.module';
+import { CoreDataModule } from './@core/@data/data.module';
+
 import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
@@ -52,6 +55,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     ThemeModule.forRoot(),
     StoreModule.forRoot({}),
     AuthModule.forRoot(),
+    CoreDataModule.forRoot(),
 
     StoreRouterConnectingModule.forRoot({
       /*

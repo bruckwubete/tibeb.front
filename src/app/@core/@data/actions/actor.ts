@@ -5,7 +5,7 @@ export enum ActorActionTypes {
   Register = '[Actor] Register',
   Get = '[Actor] Get',
   QueryActors = '[Actor] QueryActors',
-  QueryActorsDone = '[Actor] QueryActors Done',
+  QueryActorsDone = '[Actor] QueryActors  Done',
   Update = '[Actor] Update',
   Delete = '[Actor] Delete'
 }
@@ -26,7 +26,7 @@ export class QueryActors implements Action {
 }
 
 export class QueryActorsDone implements Action {
-  readonly type = ActorActionTypes.QueryActors;
+  readonly type = ActorActionTypes.QueryActorsDone;
   constructor(public payload: Array<Actor>) {}
 }
 
@@ -45,4 +45,5 @@ export type ActorActions =
   | Get
   | Update
   | Delete
-  | QueryActors;
+  | QueryActors 
+  | QueryActorsDone;

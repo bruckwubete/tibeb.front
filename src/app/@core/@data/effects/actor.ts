@@ -10,18 +10,18 @@ import { Actor, RegisterActorPayload } from '../models/actor';
 import * as actorActions from '../actions/actor';
 
 @Injectable()
-export class AuthEffects {
+export class ActorEffects {
 
     @Effect()
     login$ = this.actions$.pipe(
       ofType(actorActions.ActorActionTypes.QueryActors),
       map((action: actorActions.QueryActors) => action.payload),
-      exhaustMap((payload: String) =>
+      exhaustMap((queryString: String) =>
         this._actorService
-          .queryActors(payload)
+          .queryActors(queryString)
           .pipe(
-            map(actor => new actorActions.QueryActorsDone({ user })),
-            catchError(error => {console.log(error); return of(new LoginFailure(error))})
+            map(actor => new actorActions.QueryActorsDone(actor))
+            // catchError(error => console.log(error))
           )
       )
     );
