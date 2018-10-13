@@ -18,8 +18,7 @@ export class AuthGuard implements CanActivate {
           this.store.dispatch(new Auth.Authenticate());
         }
         return authed;
-      }),
-      take(1)
+      })
     );
   }
 }

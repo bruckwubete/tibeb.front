@@ -11,7 +11,6 @@ export class ActorService {
   }
 
   queryActors(query: String):Observable<Array<Actor>> {
-      debugger
-      return this.http.get<Array<Actor>>(`http://tibeb-back-bruck.c9users.io/api/v1/actors?${query}`);
+      return this.http.get<Array<Actor>>(`/api/v1/actors?${query}`);
   }
 }

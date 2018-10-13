@@ -38,14 +38,14 @@ export class AuthEffects {
     )
   );
 
-  // @Effect({ dispatch: false })
-  // authSuccess$ = this.actions$.pipe(
-  //   ofType(AuthActionTypes.AuthenticateSuccess),
-  //   tap(() => {
-  //     this.route.url.map(segments => segments.join('')).subscribe(str => console.log(str))
-  //     this.router.navigate([this.router.url])
-  //   })
-  // );
+  @Effect({ dispatch: false })
+  authSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.AuthenticateSuccess),
+    tap(() => {
+      this.route.url.map(segments => segments.join('')).subscribe(str => console.log(str))
+      this.router.navigate([this.router.url])
+    })
+  );
 
 
 
