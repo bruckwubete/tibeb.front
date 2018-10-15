@@ -8,9 +8,11 @@
     lastName: String,
     fullName: String,
     bio: String,
-    dob: any,
+    dob: Date,
+    movieIds: Array<String>,
     phoneNumber: String,
-    profilePics?: Array<File>,
+    pictures?: Array<File>,
+    videos?: Array<File>,
     retired: Boolean,
     socialLinks: Array<SocialLinks>
   }

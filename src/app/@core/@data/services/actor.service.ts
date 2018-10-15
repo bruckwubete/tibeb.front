@@ -9,8 +9,8 @@ export class ActorService {
 
   constructor(private http: HttpClient) {
   }
-
+  
   queryActors(query: String):Observable<Array<Actor>> {
-      return this.http.get<Array<Actor>>(`/api/v1/actors?${query}`);
+      return this.http.get<Array<Actor>>(`http://tibeb-back-bruck.c9users.io/api/v1/actors?${query}`);
   }
 }

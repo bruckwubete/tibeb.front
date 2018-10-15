@@ -9,6 +9,8 @@ import { ActorService } from '../services/actor.service';
 import { Actor, RegisterActorPayload } from '../models/actor';
 import * as actorActions from '../actions/actor';
 
+import * as camselCase from 'camelcase-keys'
+
 @Injectable()
 export class ActorEffects {
 
@@ -20,7 +22,14 @@ export class ActorEffects {
         this._actorService
           .queryActors(queryString)
           .pipe(
-            map(actor => new actorActions.QueryActorsDone(actor))
+            map(actor => {
+              let actors: Array<Actor> = actor['data'].map(element => {
+                let actor: Actor =  camselCase(element)
+                return actor;
+              });
+              console.log(actors);
+              return new actorActions.QueryActorsDone(actor)
+            })
             // catchError(error => console.log(error))
           )
       )
