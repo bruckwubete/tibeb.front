@@ -1,0 +1,23 @@
+export interface RegisterMoviePayload extends Movie {
+
+}
+
+export interface Movie {
+  id ?: String,
+  firstName: String,
+  lastName: String,
+  fullName: String,
+  bio: String,
+  dob: Date,
+  movieIds: Array<String>,
+  phoneNumber: String,
+  pictures?: Array<File>,
+  videos?: Array<File>,
+  retired: Boolean,
+  socialLinks: Array<SocialLinks>
+}
+
+interface SocialLinks {
+    name: String,
+    url: String
+}

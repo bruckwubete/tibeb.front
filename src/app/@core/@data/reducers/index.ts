@@ -7,14 +7,14 @@ export interface ActorState {
 }
 
 export interface State {
-  auth: ActorState;
+  actor: ActorState;
 }
 
 export const reducers = {
   status: fromActor.reducer
 };
 
-export const selectActorState = createFeatureSelector<ActorState>('auth');
+export const selectActorState = createFeatureSelector<ActorState>('data');
 
 export const selectStatusState = createSelector(
 selectActorState,

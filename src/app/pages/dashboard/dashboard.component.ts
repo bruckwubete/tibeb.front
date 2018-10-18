@@ -32,7 +32,7 @@ export class DashboardComponent {
     loop: true
 }
   constructor(private $movie: MovieService,  private store: Store<fromAuth.State>) {
-    this.store.dispatch(new actorActions.QueryActors(""));
+    this.store.dispatch(new actorActions.QueryActors("page[number]=2"));
     this.store.select(fromAuth.getActors).subscribe(a => console.log(a))
     for (var index=1; index<=2; index++) {
       $movie.getMovies(index).subscribe(res => {

@@ -16,16 +16,14 @@ export function reducer(state = initialState, action: ActorActions): State {
     case ActorActionTypes.Get || ActorActionTypes.Update: {
       return {
         ...state,
-        success: true,
-        actor: action.payload,
+        success: true
       };
     }
 
     case ActorActionTypes.QueryActors: {
         return {
           ...state,
-          success: false,
-          actor: action.payload,
+          success: false
         };
     }
 

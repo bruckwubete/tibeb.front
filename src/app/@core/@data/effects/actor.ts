@@ -25,10 +25,10 @@ export class ActorEffects {
             map(actor => {
               let actors: Array<Actor> = actor['data'].map(element => {
                 let actor: Actor =  camselCase(element)
+                actor.id = actor.id["$oid"] || actor.id
                 return actor;
               });
-              console.log(actors);
-              return new actorActions.QueryActorsDone(actor)
+              return new actorActions.QueryActorsDone(actors)
             })
             // catchError(error => console.log(error))
           )
