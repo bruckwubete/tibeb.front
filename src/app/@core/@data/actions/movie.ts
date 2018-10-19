@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Movie, RegisterMoviePayload } from '../models/Movie';
+import { Movie, RegisterMoviePayload } from '../models/movie';
 
 export enum MovieActionTypes {
   Register = '[Movie] Register',
