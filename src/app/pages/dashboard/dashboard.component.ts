@@ -36,7 +36,7 @@ export class DashboardComponent {
     this.store.dispatch(new actorActions.QueryActors("page[number]=2"));
     this.store.select(fromData.getActors).subscribe(a => console.log(a))
 
-    this.store.dispatch(new movieActions.QueryMovies("page[number]=3"));
+    this.store.dispatch(new movieActions.QueryMovies("page[number]=1"));
     this.store.select(fromData.getMoives).subscribe(a => console.log(a))
 
 

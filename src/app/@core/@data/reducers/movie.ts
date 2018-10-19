@@ -52,13 +52,5 @@ export function reducer(state = initialState, action: MovieActions): State {
 }
 
 export const getStatus = (state: State) => state.success;
-export const getMovie  = (state: State):Movie => {
-  if(state != undefined) {
-    return state.movie;
-  }
-};
-export const getMovies  = (state: State):Array<Movie> =>{
-  if(state != undefined) {
-    return state.movies;
-  }
-};
+export const getMovie  = (state: State):Movie => state.movie
+export const getMovies  = (state: State):Array<Movie> => state.movies

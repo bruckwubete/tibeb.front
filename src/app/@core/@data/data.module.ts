@@ -21,8 +21,7 @@ export class CoreDataModule {
 @NgModule({
   imports: [
     CoreDataModule,
-    StoreModule.forFeature('actor', reducers.actor),
-    StoreModule.forFeature('movie', reducers.movie),
+    StoreModule.forFeature('data', reducers),
     EffectsModule.forFeature([ActorEffects, MovieEffects]),
   ]
 })

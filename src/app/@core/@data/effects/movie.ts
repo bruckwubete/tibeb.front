@@ -26,7 +26,7 @@ export class MovieEffects {
               let movies: Array<Movie> = Movie['data'].map(element => {
                 let movie: Movie =  camselCase(element)
                 movie.id = movie.id["$oid"] || movie.id
-                return Movie;
+                return movie;
               });
               return new MovieActions.QueryMoviesDone(movies)
             })

@@ -50,13 +50,5 @@ export function reducer(state = initialState, action: ActorActions): State {
 }
 
 export const getStatus = (state: State) => state.success;
-export const getActor  = (state: State):Actor => {
-  if(state != undefined) {
-    return state.actor;
-  }
-};
-export const getActors  = (state: State):Array<Actor> => {
-  if(state != undefined) {
-    return state.actor;
-  }
-};
+export const getActor  = (state: State):Actor => state.actor
+export const getActors  = (state: State):Array<Actor> => state.actor

@@ -2,18 +2,15 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as fromActor from './actor';
 import * as fromMovie from './movie';
+import { Actor } from '../models/actor';
 
-export interface ActorState {
-  status: fromActor.State
-}
-
-export interface MovieState {
-  status: fromMovie.State
+export interface DataSate {
+  actor: fromActor.State
+  movie: fromMovie.State
 }
 
 export interface State {
-  actor: ActorState,
-  movie: MovieState
+  data: DataSate
 }
 
 export const reducers = {
@@ -21,17 +18,16 @@ export const reducers = {
   movie: fromMovie.reducer
 };
 
-export const selectActorState = createFeatureSelector<ActorState>('actor');
-export const selectMovieState = createFeatureSelector<MovieState>('movie');
+export const selectDataState = createFeatureSelector<DataSate>('data');
 
 export const selectActorStatus = createSelector(
-selectActorState,
-  (state: ActorState) => state.status
+  selectDataState,
+  (state: DataSate) => state.actor
 );
 
 export const selectMoiveStatus = createSelector(
-  selectMovieState,
-    (state: MovieState) => state.status
+  selectDataState,
+    (state: DataSate) => state.movie
 );
 
 
