@@ -9,7 +9,7 @@ import { MovieService } from '../services/movie.service';
 import { Movie, RegisterMoviePayload } from '../models/movie';
 import * as MovieActions from '../actions/movie';
 
-import * as camselCase from 'camelcase-keys'
+import * as camselCase from 'camelcase-keys-deep'
 
 @Injectable()
 export class MovieEffects {

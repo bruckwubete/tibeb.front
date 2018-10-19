@@ -9,7 +9,7 @@ import { ActorService } from '../services/actor.service';
 import { Actor, RegisterActorPayload } from '../models/actor';
 import * as actorActions from '../actions/actor';
 
-import * as camselCase from 'camelcase-keys'
+import * as camselCase from 'camelcase-keys-deep'
 
 @Injectable()
 export class ActorEffects {
