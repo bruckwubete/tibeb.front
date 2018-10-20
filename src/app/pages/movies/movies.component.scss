@@ -1,0 +1,84 @@
+.kit-movie-detail-content{
+    z-index: 1;
+    position: relative;
+  }
+  
+  .kit-divider{
+    height: 1px;
+    width:100%;
+    display:block;
+    margin: 2px 0 2px 0;
+    overflow: hidden;
+    background-color: #4db1a7;
+  }
+  
+  .kit-card-img{
+    width: 100%;
+    height: 250px;
+    padding-right: 0px;
+    margin-right: 0px;
+    overflow: auto;
+  }
+  
+  .kit-genre-label{
+    background: #e85656;
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 100%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    margin: 0px 5px 10px 0px;
+  }
+  
+  .kit-genre-container{
+    padding-left: 15px;
+  }
+  
+  .kit-rating-container{
+    padding-left: 15px;
+  }
+  
+  .kit-thumbs-icon{
+    font-size: 20px;
+    color: #209e91;
+  }
+  
+  .kit-rating-margin-fix{
+    margin: 0px 15px 10px 0px;
+  }
+  
+  .kit-profile-image{
+    width: 100%;
+  }
+  
+  .kit-profile-container{
+    overflow: hidden;
+    padding: 15px 0px !important;
+  }
+  
+  .kit-profile-content{
+    text-align: center;
+  }
+  
+  .kit-centered-text{
+    margin: 0 auto;
+  }
+  
+  .kit-character-name{
+    font-style: italic;
+    font-size: 8;
+  }
+  
+  .kit-hover-expand:hover{
+   transform: scale(1.10, 1.10);
+   -moz-transform: scale(1.10, 1.10);
+  -ms-transform: scale(1.10, 1.10);
+  -webkit-transform: scale(1.10, 1.10);
+  -o-transform: scale(1.10, 1.10);
+  }
+  

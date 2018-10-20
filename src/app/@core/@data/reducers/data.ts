@@ -6,7 +6,9 @@ import { Movie } from '../models/movie'
 export interface State {
   success: boolean,
   actors: Array<Actor>,
-  movies: Array<Movie>
+  movies: Array<Movie>,
+  actor: Actor,
+  movie: Movie
 }
 
 enum modelType { Actor, Data, Movie}
@@ -15,7 +17,9 @@ enum modelType { Actor, Data, Movie}
 export const initialState: State = {
   success: false,
   actors: new Array<Actor>(),
-  movies: new Array<Movie>()
+  movies: new Array<Movie>(),
+  movie: null,
+  actor: null
 };
 
 export function reducer(state = initialState, action: DataActions): State {
@@ -23,8 +27,28 @@ export function reducer(state = initialState, action: DataActions): State {
     case DataActionTypes.Get || DataActionTypes.Update: {
       return {
         ...state,
-        success: true
+        success: false
       };
+    }
+
+    case DataActionTypes.GetDone || DataActionTypes.UpdateDone: {
+      switch(action.model.toLowerCase()) {
+        case 'actors': {
+          return {
+              ...state,
+              success: true,
+              actor: action.payload as Actor
+            }
+        }
+
+        case 'movies': {
+          return {
+              ...state,
+              success: true,
+              movie: action.payload as Movie
+            }
+        }
+      }
     }
 
     case DataActionTypes.QueryData: {
@@ -71,3 +95,5 @@ export function reducer(state = initialState, action: DataActions): State {
 export const getStatus = (state: State) => state.success;
 export const getActors  = (state: State):Array<Actor> => state.actors
 export const getMovies = (state: State):Array<Movie> => state.movies
+export const getActor  = (state: State):Actor => state.actor
+export const getMovie = (state: State):Movie => state.movie

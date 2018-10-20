@@ -12,4 +12,8 @@ export class DataService {
   queryData(query: String, model: String):Observable<Object> {
       return this.http.get(`http://tibeb-back-bruck.c9users.io/api/v1/${model}?${query}`);
   }
+
+  getData(id: String, model: String):Observable<Object> {
+    return this.http.get(`http://tibeb-back-bruck.c9users.io/api/v1/${model}/${id}`);
+}
 }

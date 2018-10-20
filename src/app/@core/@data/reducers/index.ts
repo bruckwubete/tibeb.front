@@ -23,3 +23,5 @@ export const selectDataStatus = createSelector(
 
 export const getActors = createSelector(selectDataStatus, fromData.getActors);
 export const getMoives = createSelector(selectDataStatus, fromData.getMovies);
+export const getActor = createSelector(selectDataStatus, fromData.getActor);
+export const getMoive = createSelector(selectDataStatus, fromData.getMovie);

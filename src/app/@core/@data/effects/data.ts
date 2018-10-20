@@ -17,7 +17,39 @@ import * as camselCase from 'camelcase-keys-deep'
 export class DataEffects {
 
     @Effect()
-    login$ = this.actions$.pipe(
+    getData$ = this.actions$.pipe(
+        ofType(DataActions.DataActionTypes.Get),
+        map((action: DataActions.Get) => action),
+        exhaustMap((action: DataActions.Get) => 
+          this._DataService
+          .getData(action.payload, action.model)
+          .pipe(
+              map(data => {
+                  switch(action.model.toLowerCase()) {
+                      case 'actors': {
+                          let actor: Actor = camselCase(data['data'])
+                          actor.id = actor.id["$oid"] || actor.id
+                          return new DataActions.GetDone(actor, action.model)
+                      }
+            
+                      case 'movies': {
+                          let movie: Movie = camselCase(data['data'])
+                          movie.id = movie.id["$oid"] || movie.id
+                          return new DataActions.GetDone(movie, action.model)
+                      }
+  
+                      default: {
+                          console.log("Got unknown data type for Get Action: ", action.payload, action.model)
+                          return new DataActions.GetDone([], 'unknown')
+                      }
+                  }
+              })
+          )
+        )
+      )
+
+    @Effect()
+    queryData$ = this.actions$.pipe(
       ofType(DataActions.DataActionTypes.QueryData),
       map((action: DataActions.QueryData) => action),
       exhaustMap((action: DataActions.QueryData) => 

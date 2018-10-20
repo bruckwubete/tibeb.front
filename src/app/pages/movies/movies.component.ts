@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { environment } from "../../../environments/environment";
 import * as fromData from '../../@core/@data/reducers';
 import * as dataActions from '../../@core/@data/actions/data';
 
@@ -11,7 +12,7 @@ import * as dataActions from '../../@core/@data/actions/data';
 })
 export class MoviesComponent implements OnInit, OnDestroy {
     private sub: any;
-    id: Number;
+    id: String;
     movie$ = this.store.pipe(select(fromData.getMoive))
 
     constructor(private route:ActivatedRoute,  private store: Store<fromData.State>){
@@ -20,12 +21,18 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     ngOnInit() { 
       this.sub = this.route.params.subscribe(params => { 
-        this.id = +params['id']
-        this.store.dispatch(new dataActions.Get("page[number]=1", 'movie'));
+        this.id = params['id']
+        if (this.id != undefined) {
+          this.store.dispatch(new dataActions.Get(`${this.id}`, 'movies'));
+        }
       })
     }
 
     ngOnDestroy() {
       this.sub.unsubscribe();
+    }
+
+    getPosterPath(path) {
+      return `${environment.origin}/${path}`
     }
 }
