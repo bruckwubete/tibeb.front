@@ -4,6 +4,8 @@ import { environment } from "../../../environments/environment";
 import { Store, select } from '@ngrx/store';
 import * as fromData from '../../@core/@data/reducers';
 import * as dataActions from '../../@core/@data/actions/data';
+import { Movie } from '../../services/movie/movie';
+import { Observable } from 'rxjs/observable'
 
 @Component({
   selector: 'ngx-dashboard',
@@ -30,26 +32,16 @@ export class DashboardComponent {
     space: 220,
     autoRotationSpeed: 5000,
     loop: true
-}
+  }
+  movies$ = this.store.pipe(select(fromData.getMoives))
   constructor(private $movie: MovieService,  private store: Store<fromData.State>) {
     this.store.dispatch(new dataActions.QueryData("page[number]=1", 'movies'));
-    this.store.select(fromData.getMoives).subscribe(a => console.log(a))
-
-    // this.store.dispatch(new dataActions.QueryData("page[number]=2", 'movies'));
-    // this.store.select(fromData.getMoives).subscribe(a => console.log(a))
-
-
-    for (var index=1; index<=2; index++) {
-      $movie.getMovies(index).subscribe(res => {
-        this.movies = this.movies.concat(res['data']);
-        let newSlides = new Array<object>()
-
-        res['data'].forEach((item) => {
-          newSlides.push({src: `${environment.origin}/${item.images[0]['pic_path']}`})
-        })
-        this.slides = newSlides.concat(this.slides)
-      })
-    }
+    this.movies$.subscribe((results) => {
+      let newSlides = results.map((item) => {
+        return new Object({src: `${environment.origin}/${item.images[0]['picPath']}`})
+      })    
+      this.slides = newSlides.concat(this.slides)
+    })
   }
 
   slideClicked (index) {

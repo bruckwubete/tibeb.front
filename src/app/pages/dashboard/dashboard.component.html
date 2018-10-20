@@ -4,7 +4,7 @@
           <img class="slide-img" src="{{slide.src}}" alt=""/>
       </ngx-carousel-3d-slide>
   </ngx-carousel-3d>
-  <div class="col-xxxl-3 col-xxl-6 col-lg-5 col-md-6" *ngFor="let movie of movies">
+  <div class="col-xxxl-3 col-xxl-6 col-lg-5 col-md-6" *ngFor="let movie of movies$ | async">
     <ngx-kitten [item]="movie"></ngx-kitten>
   </div>
 </div>

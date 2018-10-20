@@ -1,14 +1,14 @@
 import { Component, OnDestroy, Input } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { environment } from "../../../../environments/environment";
-
+import { Movie } from "../../../@core/@data/models/movie"
 @Component({
   selector: 'ngx-kitten',
   styleUrls: ['./kitten.component.scss'],
   templateUrl: './kitten.component.html',
 })
 export class KittenComponent implements OnDestroy {
-  @Input() item
+  @Input() item:Movie
 
   currentTheme: string;
   themeSubscription: any;
@@ -24,6 +24,6 @@ export class KittenComponent implements OnDestroy {
   }
 
   getPosterPath(item) {
-    return `${environment.origin}${item.images[0]['pic_path']}`
+    return `${environment.origin}${item.images[0]['picPath']}`
   }
 }
