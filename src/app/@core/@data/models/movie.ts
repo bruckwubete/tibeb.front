@@ -1,10 +1,11 @@
 import { Actor } from './actor'
+import { Data } from './data'
 
 export interface RegisterMoviePayload extends Movie {
 
 }
 
-export interface Movie {
+export interface Movie extends Data {
   id ?: String,
   budget: Number,
   homepage: String,

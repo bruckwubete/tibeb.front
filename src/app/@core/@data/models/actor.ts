@@ -1,8 +1,10 @@
+  import { Data } from './data'
+  
   export interface RegisterActorPayload extends Actor {
 
   }
   
-  export interface Actor {
+  export interface Actor extends Data {
     id ?: String,
     firstName: String,
     lastName: String,

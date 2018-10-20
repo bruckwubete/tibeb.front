@@ -1,11 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ActorService } from './services/actor.service';
-import { MovieService } from './services/movie.service';
-import { ActorEffects } from './effects/actor';
-import { MovieEffects } from './effects/movie';
+import { DataEffects } from './effects/data';
 import { reducers } from './reducers';
+import { DataService } from './services/data.service';
 
 
 @NgModule({})
@@ -13,7 +11,7 @@ export class CoreDataModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: RootDataModule,
-      providers: [ActorService, MovieService],
+      providers: [DataService],
     };
   }
 }
@@ -22,7 +20,7 @@ export class CoreDataModule {
   imports: [
     CoreDataModule,
     StoreModule.forFeature('data', reducers),
-    EffectsModule.forFeature([ActorEffects, MovieEffects]),
+    EffectsModule.forFeature([DataEffects]),
   ]
 })
 export class RootDataModule {}

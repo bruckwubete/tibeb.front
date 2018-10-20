@@ -24,6 +24,6 @@ export class KittenComponent implements OnDestroy {
   }
 
   getPosterPath(item) {
-    return `${environment.origin}/${item.images[0]['picture_path']}`
+    return `${environment.origin}${item.images[0]['pic_path']}`
   }
 }

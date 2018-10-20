@@ -3,8 +3,7 @@ import { MovieService } from '../../services/movie/movie-service.service'
 import { environment } from "../../../environments/environment";
 import { Store, select } from '@ngrx/store';
 import * as fromData from '../../@core/@data/reducers';
-import * as actorActions from '../../@core/@data/actions/actor';
-import * as movieActions from '../../@core/@data/actions/movie';
+import * as dataActions from '../../@core/@data/actions/data';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -33,11 +32,11 @@ export class DashboardComponent {
     loop: true
 }
   constructor(private $movie: MovieService,  private store: Store<fromData.State>) {
-    this.store.dispatch(new actorActions.QueryActors("page[number]=2"));
-    this.store.select(fromData.getActors).subscribe(a => console.log(a))
-
-    this.store.dispatch(new movieActions.QueryMovies("page[number]=1"));
+    this.store.dispatch(new dataActions.QueryData("page[number]=1", 'movies'));
     this.store.select(fromData.getMoives).subscribe(a => console.log(a))
+
+    // this.store.dispatch(new dataActions.QueryData("page[number]=2", 'movies'));
+    // this.store.select(fromData.getMoives).subscribe(a => console.log(a))
 
 
     for (var index=1; index<=2; index++) {
@@ -46,7 +45,7 @@ export class DashboardComponent {
         let newSlides = new Array<object>()
 
         res['data'].forEach((item) => {
-          newSlides.push({src: `${environment.origin}/${item.images[0]['picture_path']}`})
+          newSlides.push({src: `${environment.origin}/${item.images[0]['pic_path']}`})
         })
         this.slides = newSlides.concat(this.slides)
       })

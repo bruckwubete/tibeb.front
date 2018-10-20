@@ -1,12 +1,9 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-
-import * as fromActor from './actor';
-import * as fromMovie from './movie';
 import { Actor } from '../models/actor';
+import * as fromData from './data'
 
 export interface DataSate {
-  actor: fromActor.State
-  movie: fromMovie.State
+  data: fromData.State
 }
 
 export interface State {
@@ -14,27 +11,15 @@ export interface State {
 }
 
 export const reducers = {
-  actor: fromActor.reducer,
-  movie: fromMovie.reducer
+  data: fromData.reducer
 };
 
 export const selectDataState = createFeatureSelector<DataSate>('data');
 
-export const selectActorStatus = createSelector(
+export const selectDataStatus = createSelector(
   selectDataState,
-  (state: DataSate) => state.actor
+    (state: DataSate) => state.data
 );
 
-export const selectMoiveStatus = createSelector(
-  selectDataState,
-    (state: DataSate) => state.movie
-);
-
-
-export const getActor = createSelector(selectActorStatus, fromActor.getActor);
-export const getActors = createSelector(selectActorStatus, fromActor.getActors);
-export const getStatus = createSelector(selectActorStatus, fromActor.getStatus);
-
-export const getMovie = createSelector(selectMoiveStatus, fromMovie.getMovie);
-export const getMoives = createSelector(selectMoiveStatus, fromMovie.getMovies);
-export const getMoiveStatus = createSelector(selectMoiveStatus, fromMovie.getStatus);
+export const getActors = createSelector(selectDataStatus, fromData.getActors);
+export const getMoives = createSelector(selectDataStatus, fromData.getMovies);
