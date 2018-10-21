@@ -14,21 +14,20 @@
       </div>
       <div class="col-9">
         <div class="row kit-genre-container" >
-          <p *ngFor="let genre of (movie$ | async)?.genres" class="kit-genre-label">{{genre.name}}</p>
+          <p *ngFor="let genre of (movie$ | async)?.genres" class="kit-genre-label">{{genre.type}}</p>
           <div class="col-7"></div>
         </div>
-        <hr class="kit-divider"/>
         <br />
         <div class="row kit-rating-container">
-          <kit-rating [(ngModel)]="movie$.voteAverage" [max]="maxRateValue" [readonly]="isRatingReadonly"
-
-                      [titles]="['one','two','three']">
+          <kit-rating [(ngModel)]="voteAverage" [max]="maxRateValue" [readonly]="isRatingReadonly"
+                      [titles]="['one','two','three', 'four', 'five']">
           </kit-rating>
           <!-- (onHover)="overStarDoSomething($event)" (onLeave)="resetRatingStar($event)" <span class="kit-rating-margin-fix"><i class=" kit-thumbs-icon ion-thumbsup"></i> {{(movie$ | async)?.rating.loved}}</span>
           <span class="kit-rating-margin-fix"><i class="kit-thumbs-icon ion-thumbsdown"></i> {{(movie$ | async)?.rating.hated}}</span>-->
         </div>
         <br />
         <div>
+          <strong>Overview</strong>
           <p>{{(movie$ | async)?.overview}}</p>
         </div>
         <br />
@@ -36,11 +35,11 @@
         <br />
         <div class="row">
           <div class="col">
-            <span>Directed by</span> <br>
+            <span><strong>Directed by</strong></span> <br>
             <span> bruck</span>
           </div>
           <div class="col">
-            <span>Written by</span>
+            <span><strong>Written by</strong></span>
           </div>
         </div>
         <br>

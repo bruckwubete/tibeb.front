@@ -12,11 +12,18 @@ import * as dataActions from '../../@core/@data/actions/data';
 })
 export class MoviesComponent implements OnInit, OnDestroy {
     private sub: any;
+    private sub1: any;
+
     id: String;
     movie$ = this.store.pipe(select(fromData.getMoive))
+    voteAverage = 0
 
     constructor(private route:ActivatedRoute,  private store: Store<fromData.State>){
-      
+      this.sub1 = this.movie$.subscribe((data) => {
+        if(data) {
+          this.voteAverage = data.voteAverage / 88
+        }
+      })
     }
 
     ngOnInit() { 
@@ -30,6 +37,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
       this.sub.unsubscribe();
+      this.sub1.unsubscribe();
     }
 
     getPosterPath(path) {
