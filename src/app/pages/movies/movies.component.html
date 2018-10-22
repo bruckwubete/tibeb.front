@@ -15,9 +15,9 @@
       <div class="col-9">
         <div class="row kit-genre-container" >
           <p *ngFor="let genre of (movie$ | async)?.genres" class="kit-genre-label">{{genre.type}}</p>
-          <div class="col-7"></div>
         </div>
         <br />
+        <span> <i class="icon ion-android-calendar kit-calendar-icon"></i> {{(movie$ | async)?.releaseDate | amDateFormat:'LL'}} &nbsp;&nbsp;</span>
         <div class="row kit-rating-container">
           <kit-rating [(ngModel)]="voteAverage" [max]="maxRateValue" [readonly]="isRatingReadonly"
                       [titles]="['one','two','three', 'four', 'five']">
@@ -39,7 +39,8 @@
             <span> bruck</span>
           </div>
           <div class="col">
-            <span><strong>Written by</strong></span>
+            <span><strong>Written by</strong></span> <br>
+            <span> bruck</span>
           </div>
         </div>
         <br>
