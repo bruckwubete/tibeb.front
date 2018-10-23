@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'etmdb-show-movie',
     template: `
       <etmdb-movie-view
-        [movie]="movie$ | async">
+        [movie$]="movie$ | async">
       </etmdb-movie-view>
     `,
     styles: [],

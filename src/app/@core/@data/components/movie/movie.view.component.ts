@@ -8,14 +8,21 @@ import { environment } from "../../../../../environments/environment";
     styleUrls: ['./movie.view.component.scss'],
   })
   export class MovieViewComponent implements OnInit {
-      voteAverage = 0
+      voteAverage:number = 0
+      private movie: Movie;
       constructor(){
-
       }
 
-      ngOnInit(){}
+      ngOnInit(){
+      }
 
-      @Input() movie: Movie | {};
+      @Input()
+      set movie$(movie: Movie) {
+        if(movie && movie != undefined) {
+            this.movie = movie;
+            this.voteAverage = this.movie.voteAverage;
+        }
+      }
 
       getPosterPath(path) {
         return `${environment.origin}/${path}`
