@@ -1,0 +1,116 @@
+<!-- <etmdb-backdrop path="bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"></etmdb-backdrop> -->
+<div class="kit-movie-detail-content">
+        <div class="container col-xlg-9 col-xl-9 col-lg-12 col-sm-12 col-12">
+          <div class="row justify-content-md-center">
+            <div class="col">
+              <h1>{{movie?.title}}</h1>
+              <hr class="kit-divider"/>
+              <br/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <img src="{{getPosterPath(movie?.images[0].picPath)}}" class="kit-card-img"/>
+            </div>
+            <div class="col-9">
+              <div class="row kit-genre-container" >
+                <p *ngFor="let genre of movie?.genres" class="kit-genre-label">{{genre.type}}</p>
+              </div>
+              <br />
+              <span> <i class="icon ion-android-calendar kit-calendar-icon"></i> {{movie?.releaseDate | amDateFormat:'LL'}} &nbsp;&nbsp;</span>
+              <div class="row kit-rating-container">
+                <kit-rating [(ngModel)]="voteAverage" [max]="maxRateValue" [readonly]="isRatingReadonly"
+                            [titles]="['one','two','three', 'four', 'five']">
+                </kit-rating>
+                <!-- (onHover)="overStarDoSomething($event)" (onLeave)="resetRatingStar($event)" <span class="kit-rating-margin-fix"><i class=" kit-thumbs-icon ion-thumbsup"></i> {{movie?.rating.loved}}</span>
+                <span class="kit-rating-margin-fix"><i class="kit-thumbs-icon ion-thumbsdown"></i> {{movie?.rating.hated}}</span>-->
+              </div>
+              <br />
+              <div>
+                <strong>Overview</strong>
+                <p>{{movie?.overview}}</p>
+              </div>
+              <br />
+      
+              <br />
+              <div class="row">
+                <div class="col">
+                  <span><strong>Directed by</strong></span> <br>
+                  <span> bruck</span>
+                </div>
+                <div class="col">
+                  <span><strong>Written by</strong></span> <br>
+                  <span> bruck</span>
+                </div>
+              </div>
+              <br>
+              <div class="row btns-row">
+                <div class="col-sm-4 col-6">
+                  <div class="btn-group" ngbDropdown>
+                    <button type="button" class="btn btn-primary btn-with-icon" ngbDropdownToggle><i class="ion-heart"></i></button>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a href="#">Action</a></li>
+                      <li class="dropdown-item"><a href="#">Another action</a></li>
+                      <li class="dropdown-item"><a href="#">Something else here</a></li>
+                      <li class="dropdown-divider"></li>
+                      <li class="dropdown-item"><a href="#">Separated link</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-6">
+                  <div class="btn-group" ngbDropdown>
+                    <button type="button" class="btn btn-success" ngbDropdownToggle>
+                      Success
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a href="#">Action</a></li>
+                      <li class="dropdown-item"><a href="#">Another action</a></li>
+                      <li class="dropdown-item"><a href="#">Something else here</a></li>
+                      <li class="dropdown-divider"></li>
+                      <li class="dropdown-item"><a href="#">Separated link</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-6">
+                  <div class="btn-group" ngbDropdown>
+                    <button type="button" class="btn btn-info" ngbDropdownToggle>
+                      Info
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-item"><a href="#">Action</a></li>
+                      <li class="dropdown-item"><a href="#">Another action</a></li>
+                      <li class="dropdown-item"><a href="#">Something else here</a></li>
+                      <li class="dropdown-divider"></li>
+                      <li class="dropdown-item"><a href="#">Separated link</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <div class="row justify-content-md-center">
+            <div class="col">
+              <h1>Cast</h1>
+              <hr class="kit-divider"/>
+              <br/>
+            </div>
+          </div>
+          <div class="row">
+              <div *ngFor="let cast of movie?.cast; let i = index" class="col-3 kit-hover-expand">
+                  <nb-card *ngIf="i<=7" class="col-xlg-4 col-xl-4 col-lg-12 col-sm-12 col-12">
+                  <div class="col">
+                      <img src="http://image.tmdb.org/t/p/w500{{cast.profile_path}}"  class="kit-profile-image">
+                      <span>&nbsp;</span>
+                    <div class="row kit-profile-content">
+                      <p class="kit-centered-text col-12"> {{cast.name}} <br/></p>
+                      <p class="kit-centered-text kit-character-name"> {{cast.character}} </p>
+                    </div>
+                  </div>
+                  </nb-card>
+              </div>
+          </div>
+        </div>
+      </div>
+      

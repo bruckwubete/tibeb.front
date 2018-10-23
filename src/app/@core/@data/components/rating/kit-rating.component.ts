@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, HostListener, Self, EventEmitter, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NgModel } from '@angular/forms';
+import { CommonModule } from "@angular/common"
 
 @Component({
   selector: 'kit-rating',

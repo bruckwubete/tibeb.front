@@ -1,23 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-
-import { ThemeModule } from '../../@theme/theme.module';
 import { MovieRoutingModule, routedComponents } from './movies-routing.module';
-import { Backdrop } from './backdrop/backdrop.component'
-import { KitRatingComponent } from './rating/kit-rating.component'
-import { MomentModule } from 'angular2-moment';
+import { CoreDataModule } from '../../@core/@data/data.module';
 
 @NgModule({
   imports: [
-    ThemeModule,
     MovieRoutingModule,
-    Ng2SmartTableModule,
-    MomentModule
+    CoreDataModule
   ],
   declarations: [
-    ...routedComponents,
-    Backdrop,
-    KitRatingComponent
+    ...routedComponents
   ]
 })
 export class MoviesModule { }
