@@ -3,8 +3,8 @@
   export interface RegisterActorPayload extends Actor {
 
   }
-  
-  export interface Actor extends Data {
+
+  export interface Person extends Data {
     id ?: String,
     firstName: String,
     lastName: String,
@@ -17,6 +17,13 @@
     videos?: Array<File>,
     retired: Boolean,
     socialLinks: Array<SocialLinks>
+  }
+  
+  export interface Actor extends Person {
+  }
+  export interface Director extends Person {
+  }
+  export interface Crew extends Person {
   }
 
   interface SocialLinks {

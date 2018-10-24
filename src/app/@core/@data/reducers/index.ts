@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { Actor } from '../models/actor';
+import { Actor } from '../models/person';
 import * as fromData from './data'
 
 export interface DataSate {

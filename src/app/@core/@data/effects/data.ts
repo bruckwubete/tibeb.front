@@ -5,7 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { tap, map, exhaustMap, catchError } from 'rxjs/operators';
 
 import { DataService } from '../services/data.service';
-import { Actor } from '../models/actor';
+import { Actor } from '../models/person';
 import { Movie } from '../models/movie';
 
 import { Data, RegisterDataPayload } from '../models/data';

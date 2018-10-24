@@ -1,6 +1,6 @@
 import { DataActionTypes, DataActions } from '../actions/data';
 import { Data } from '../models/data';
-import { Actor } from '../models/actor'
+import { Actor } from '../models/person'
 import { Movie } from '../models/movie'
 
 export interface State {

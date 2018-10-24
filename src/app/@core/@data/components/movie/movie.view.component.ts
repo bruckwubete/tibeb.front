@@ -9,6 +9,7 @@ import { environment } from "../../../../../environments/environment";
   })
   export class MovieViewComponent implements OnInit {
       voteAverage:number = 0
+      directorNames:string = ''
       private movie: Movie;
       constructor(){
       }
@@ -21,6 +22,7 @@ import { environment } from "../../../../../environments/environment";
         if(movie && movie != undefined) {
             this.movie = movie;
             this.voteAverage = this.movie.voteAverage;
+            console.log(movie)
         }
       }
 

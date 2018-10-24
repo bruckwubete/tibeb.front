@@ -1,6 +1,5 @@
-import { Actor } from './actor'
+import { Actor, Director, Crew } from './person'
 import { Data } from './data'
-
 export interface RegisterMoviePayload extends Movie {
 
 }
@@ -20,6 +19,8 @@ export interface Movie extends Data {
   adult: Boolean,
   genres: Array<String>,
   actors: Array<Actor>,
+  directors: Array<Director>,
+  crews: Array<Crew>,
   images?: Array<any>,
   videos?: Array<any>,
   retired: Boolean
