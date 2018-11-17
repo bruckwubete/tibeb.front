@@ -11,11 +11,10 @@ import { environment } from "../../../../../environments/environment";
       voteAverage:number = 0
       directorNames:string = ''
       private movie: Movie;
-      constructor(){
-      }
+      
+      constructor(){}
 
-      ngOnInit(){
-      }
+      ngOnInit(){}
 
       @Input()
       set movie$(movie: Movie) {

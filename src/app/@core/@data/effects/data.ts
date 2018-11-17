@@ -28,13 +28,16 @@ export class DataEffects {
                   switch(action.model.toLowerCase()) {
                       case 'actors': {
                           let actor: Actor = camselCase(data['data'])
-                          actor.id = actor.id["$oid"] || actor.id
                           return new DataActions.GetDone(actor, action.model)
                       }
             
                       case 'movies': {
                           let movie: Movie = camselCase(data['data'])
-                          movie.id = movie.id["$oid"] || movie.id
+                          if (movie.images.length == 0){
+                            movie.images = [{
+                                picPath: "/images/original/movie/missing.png"
+                            }];
+                          }
                           return new DataActions.GetDone(movie, action.model)
                       }
   
@@ -61,7 +64,6 @@ export class DataEffects {
                     case 'actors': {
                         let actors: Array<Actor> = data['data'].map(element => {
                             let actor: Actor =  camselCase(element)
-                            actor.id = actor.id["$oid"] || actor.id
                             return actor;
                         });
                         return new DataActions.QueryDataDone(actors, action.model)
@@ -70,7 +72,11 @@ export class DataEffects {
                     case 'movies': {
                         let movies: Array<Movie> = data['data'].map(element => {
                             let movie: Movie =  camselCase(element)
-                            movie.id = movie.id["$oid"] || movie.id
+                            if (movie.images.length == 0){
+                                movie.images = [{
+                                    picPath: "/images/original/movie/missing.png"
+                                }];
+                            }
                             return movie;
                         });
                         return new DataActions.QueryDataDone(movies, action.model)
